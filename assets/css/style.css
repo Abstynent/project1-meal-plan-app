@@ -1,6 +1,31 @@
+* {
+  
+}
+
+body {
+  background-image: url();
+  background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+position: relative;
+height: 1000px;
+
+}
 .border {
   border: solid black;
 }
-* {
-  margin: auto;
+.border-radius {
+  border-radius: 10px;
+}
+.img:hover {
+  opacity: 0.3;
+}
+.containerheight {
+  height: 70%;
+}
+.border {
+  border: solid black;
+}
+.shadow {
+  box-shadow: 5px 5px 5px 5px rgb(214, 214, 214)
 }
