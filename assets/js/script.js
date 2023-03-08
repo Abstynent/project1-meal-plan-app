@@ -27,10 +27,6 @@ BTN_RANDOM_SEARCH.on("click", function(event) {
     event.preventDefault();
     fetchData(API_RANDOM_MEAL);
 });
-
-$(function(){
-    $("#includedContent").load("selection_page.html"); 
-  });
   
 function fetchData(url) {
     fetch(url).then(function(response) {

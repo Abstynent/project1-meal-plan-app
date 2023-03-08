@@ -1,0 +1,7 @@
+a,
+a:after,
+a:before,
+a:focus {
+    text-decoration: none;
+    color: black;
+}
