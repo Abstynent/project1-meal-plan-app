@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -12,18 +11,46 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <nav>
-      <h1 class="is-full border is-size-1 has-text-centered m-3">MealApp</h1>
+    <nav class="has-text-white shadow has-background-primary is-fluid navbar is-justify-content-space-around">
+      <h1 class="is-size-1 has-text-centered">Meal Planner</h1>
     </nav>
-    <div class="columns">
-      <div class="field is-offset-one-fifth is-three-quarters">
-        <label class="label"></label>
-        <div class="control column is-four-fifths">
-          <input class="input" type="text" placeholder="Enter your name" />
+
+    <section
+      class="mt-6  hero-body containerheight is-justify-content-space-evenly is-flex-wrap-wrap is-flex">
+      <div>
+        <h3 class="has-text-centered  is-size-3">Meal</h3>
+        <a href=""
+          ><img
+            class="border-radius shadow img"
+            src="./assets/images/Meal.jpg"
+            alt="Meal"
+            style="width: 200px; height: 200px"
+        /></a>
+      </div>
+      <div>
+        <h3 class="has-text-centered is-size-3">Coctail</h3>
+        <a href=""
+          ><img
+            class="border-radius shadow img"
+            src="./assets/images/Coctail.jpg"
+            alt="Coctail"
+            style="width: 200px; height: 200px"
+        /></a>
+      </div>
+    </section>
+    <footer class="footer shadow is-fixed-bottom">
+      <div class="has-text-centered hero-foot">
+        <div>
+          <h6 class="is-size-4">Created by:</h6>
+        </div>
+        <div>
+          <a class="button shadow is-primary is-rounded" href="">Jays</a>
+          <a class="button shadow is-link is-rounded" href="">Kris</a>
+          <a class="button shadow is-info is-rounded" href="">Lukasz</a>
         </div>
       </div>
-    </div>
+    </footer>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
- <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/script.js"></script>
   </body>
 </html>
