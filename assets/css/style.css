@@ -37,5 +37,7 @@ a:focus {
 .shadow {
   box-shadow: 5px 5px 5px 5px rgb(214, 214, 214)
 }
-
+.transparent {
+  background: transparent;
+}
 
