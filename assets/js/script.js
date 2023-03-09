@@ -103,7 +103,6 @@ function renderIngredientsTable(recipe) {
 SEARCH.on('click', function(event) {
     if(event.target.id === 'submit-btn') {
         let value = $('input[name="input-box"').val();
-
         switch(event.target.value) {
             case 'sbmname': fetchData(API_MEAL_URL + API_SEARCH_NAME + value); break;
             case 'sbmingredient': fetchData(API_MEAL_URL + API_FILTER_INGREDIENT + value); break;
@@ -139,4 +138,17 @@ function makeButton(e) {
     newDiv.appendChild(input);
     newDiv.appendChild(button);
     parent.appendChild(newDiv);
+    
+    $('[id^="sbm"]').click(function() {
+
+        // let name = document.querySelector('label').innerText;
+        let type = e.target.id;
+        let searchEl = $('[id^="food"]').val();
+        let searchType = {
+            type: type,
+            search: searchEl
+        }
+
+        localStorage.setItem("searchBy", JSON.stringify(searchType));
+    })
 }
