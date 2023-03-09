@@ -1,35 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MealApp</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="stylesheet" href="./assets/css/search-style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Abel&family=EB+Garamond&family=Mukta:wght@300&display=swap" rel="stylesheet">
-</head>
-<header >
+  </head>
+  <body>
+    <nav
+      class="has-text-white p-5 shadow has-background-primary is-flex is-fluid navbar is-justify-content-space-around"
+    >
+      <img style="width: 260px; height: 80px" src="./assets/images/logo.png"></img>
+    </nav>
 
-</header>
-<body>
+    <section
+      class="mt-6 hero-body containerheight is-justify-content-space-evenly is-flex-wrap-wrap is-flex"
+    >
     <seciton class="main-content">
-<div class="search" id="search">
-    <h1>Search by: </h1>
-
-<div class="search-by" id="search-by">
-<button class="search-b" id="name">name</button>
-<button class="search-b" id="ingredient">ingredient</button>
-<button class="search-b" id="category">category</button>
-<button class="search-b" id="area">area</button>
-</div>
-    <div class="search-form" id="search-form">
+        <div class="search shadow is-primary " id="search">
+            <h1 class="m-5 p-5 button shadow is-info is-rounded">Search By </h1>
         
-</div>
-
-</div>
-</seciton>
-<script src="./assets/js/script.js"></script>
-</body>
+        <div class="search-by m-1 p-1 is-flex is-flex-wrap-wrap is-justify-content-center" id="search-by">
+        <button class="search-b button shadow is-primary is-rounded" id="name">name</button>
+        <button class="search-b button shadow is-primary is-rounded" id="ingredient">ingredient</button>
+        <button class="search-b button shadow is-primary is-rounded" id="category">category</button>
+        <button class="search-b button shadow is-primary is-rounded" id="area">area</button>
+        </div>
+            <div class="search-form" id="search-form">
+                
+        </div>
+        
+        </div>
+        </seciton>
+    </section>
+    <footer class="footer shadow is-fixed-bottom">
+      <div class="has-text-centered hero-foot">
+        <div>
+          <h6 class="is-size-4">Created by:</h6>
+        </div>
+        <div>
+          <a class="button shadow is-primary is-rounded" href="https://github.com/jsen07">Jays</a>
+          <a class="button shadow is-link is-rounded" href="https://github.com/kristiyantefov">Kris</a>
+          <a class="button shadow is-info is-rounded" href="https://github.com/Abstynent">Lukasz</a>
+        </div>
+      </div>
+    </footer>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="./assets/js/script.js"></script>
+  </body>
 </html>
