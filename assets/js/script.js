@@ -138,7 +138,7 @@ function makeButton(e) {
     newDiv.appendChild(input);
     newDiv.appendChild(button);
     parent.appendChild(newDiv);
-    
+
     $('[id^="sbm"]').click(function() {
 
         // let name = document.querySelector('label').innerText;
