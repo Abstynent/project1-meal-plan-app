@@ -7,6 +7,7 @@ const API_SEARCH_NAME = API_MEAL_URL + 'search.php?s=' // dish name at the end
 const API_FILTER_INGREDIENT = API_MEAL_URL + 'filter.php?i=' // add ingredient
 const API_FILTER_CATEGORY = API_MEAL_URL + 'filter.php?c=' // add category
 const API_FILTER_AREA = API_MEAL_URL + 'filter.php?a=' // add country
+const btns = document.querySelectorAll('button');
 // <---- ---->
 
 const SEARCH_DISPLAY = $('#search-display'); 
@@ -83,3 +84,34 @@ function renderIngredientsTable(recipe) {
         };
     };
 };
+
+
+
+btns.forEach(btn => {
+    btn.addEventListener('click', makeButton);
+})
+
+function makeButton(e) {
+    let parent = document.getElementById('search');
+    let name = e.target.id;
+    let div = document.getElementById('search-form');
+    div.remove();
+
+    let newDiv = document.createElement('div');
+    newDiv.setAttribute('class', 'search-form');
+    newDiv.setAttribute('id', 'search-form');
+    const label = document.createElement('label')
+    let input = document.createElement('input');
+    input.setAttribute('id', 'food'+name)
+    input.setAttribute('name', 'food'+name)
+    label.setAttribute('for' ,'food'+name);
+    label.innerText = name+":";
+    let button = document.createElement('button');
+    button.setAttribute('id', 'sbm'+name);
+
+
+    newDiv.appendChild(label);
+    newDiv.appendChild(input);
+    newDiv.appendChild(button);
+    parent.appendChild(newDiv);
+}
