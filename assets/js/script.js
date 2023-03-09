@@ -10,7 +10,7 @@ const API_FILTER_AREA = API_MEAL_URL + 'filter.php?a=' // add country
 const btns = document.querySelectorAll('button');
 // <---- ---->
 
-const SEARCH_DISPLAY = $('#search-display'); 
+const SEARCH_DISPLAY = $('<div id="search-display" class="columns is-centered is-multiline">'); 
 var dataObject; // save selected recipe
 fetchData(API_SEARCH_NAME + 'chicken');
 
