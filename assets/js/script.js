@@ -68,7 +68,7 @@ function renderSelectedRecipe(recipe) {
     SEARCH_DISPLAY.empty().append(imgColumnEl);
 
     renderIngredientsTable(recipe.meals[0]);
-    $('body').append(instructionsEl);
+    $('.hero-body').append(instructionsEl);
 };
 
 // create table with ingredients to display in recipe content
@@ -103,7 +103,6 @@ function renderIngredientsTable(recipe) {
 SEARCH.on('click', function(event) {
     if(event.target.id === 'submit-btn') {
         let value = $('input[name="input-box"').val();
-
         switch(event.target.value) {
             case 'sbmname': fetchData(API_MEAL_URL + API_SEARCH_NAME + value); break;
             case 'sbmingredient': fetchData(API_MEAL_URL + API_FILTER_INGREDIENT + value); break;
