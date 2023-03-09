@@ -139,4 +139,17 @@ function makeButton(e) {
     newDiv.appendChild(input);
     newDiv.appendChild(button);
     parent.appendChild(newDiv);
+
+    $('[id^="sbm"]').click(function() {
+
+        // let name = document.querySelector('label').innerText;
+        let type = e.target.id;
+        let searchEl = $('[id^="food"]').val();
+        let searchType = {
+            type: type,
+            search: searchEl
+        }
+
+        localStorage.setItem("searchBy", JSON.stringify(searchType));
+    })
 }
