@@ -68,7 +68,7 @@ function renderSelectedRecipe(recipe) {
     SEARCH_DISPLAY.empty().append(imgColumnEl);
 
     renderIngredientsTable(recipe.meals[0]);
-    $('body').append(instructionsEl);
+    $('.hero-body').append(instructionsEl);
 };
 
 // create table with ingredients to display in recipe content
