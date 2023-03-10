@@ -12,7 +12,7 @@ const API_FILTER_AREA = 'filter.php?a=' // add country
 // <---- ---->
 
 const BTNS = document.querySelectorAll('button');
-const SEARCH_DISPLAY = $('<div id="search-display" class="columns is-centered is-multiline">'); 
+const SEARCH_DISPLAY = $('<div id="search-display" class="columns m-4 is-align-items-center is-centered is-multiline">'); 
 const SEARCH = $('#search');
 var dataObject; // save selected recipe
 var submitBtnEl = $();
@@ -25,9 +25,9 @@ function fetchData(url) {
             response.json().then(function (data) {
                 for(let i=0; i<data.meals.length; i++) {
                     let img_url = data.meals[i].strMealThumb;
-                    let column = $('<div class="column is-link has-background-primary is-one-fifth has-text-centered m-1">');
+                    let column = $('<div class="column is-link border-radius is-one-fifth has-text-centered m-1">');
                     let link = $('<a id="' + data.meals[i].idMeal + '" onclick="selectRecipe(event)">');
-                    let img = $('<img width=200 src="' + img_url + '" alt="' + data.meals[i].strMeal +'">');
+                    let img = $('<img class="shadow border-radius" src="' + img_url + '" alt="' + data.meals[i].strMeal +'">');
                     let pTag = $('<p>').text(data.meals[i].strMeal);
                     let main = $('.main-content');
                     main.empty().append(SEARCH_DISPLAY);
@@ -59,10 +59,10 @@ function selectRecipe(event) {
 
 // create a container with recipe content
 function renderSelectedRecipe(recipe) { 
-    let imgColumnEl = $('<div class="column is-one-third">')
-    let imgFrameEl = $('<figure class="image is-square">');
-    let imgEl = $('<img  width=400 src="' + recipe.meals[0].strMealThumb +'" alt="' + recipe.meals[0].strMeal +'">');
-    let instructionsEl = $('<div class="rows m-2">').text(recipe.meals[0].strInstructions);
+    let imgColumnEl = $('<div class="column m-4">')
+    let imgFrameEl = $('<figure class="image">');
+    let imgEl = $('<img class="shadow image imgrecipe border-radius" src="' + recipe.meals[0].strMealThumb +'" alt="' + recipe.meals[0].strMeal +'">');
+    let instructionsEl = $('<div class="rows m-4">').text(recipe.meals[0].strInstructions);
     imgColumnEl.append(imgFrameEl);
     imgFrameEl.append(imgEl);
     SEARCH_DISPLAY.empty().append(imgColumnEl);
@@ -73,8 +73,8 @@ function renderSelectedRecipe(recipe) {
 
 // create table with ingredients to display in recipe content
 function renderIngredientsTable(recipe) {
-    let recipeColumnEl = $('<div class="column">');
-    let recipeTitleEl = $('<h2 class="title is-2">').text(recipe.strMeal);
+    let recipeColumnEl = $('<div class="column m-4 is-flex is-flex-direction-column ">');
+    let recipeTitleEl = $('<h2 class="title has-text-centered is-3">').text(recipe.strMeal);
     let ingredientsTableEl = $('<table class="table is-bordered is-striped is-narrow is-hoverable">');
     let ingredientsTableBodyEl = $('<tbody>');
     let headMeasureEl = $('<th>').text('Measure');
@@ -128,11 +128,13 @@ function makeButton(e) {
     let input = document.createElement('input');
     input.setAttribute('id', 'food'+name)
     input.setAttribute('name', 'input-box');
+    input.setAttribute('class', "input is-primary is-rounded")
     label.setAttribute('for' ,'food'+name);
-    label.innerText = name+":";
     let button = document.createElement('button');
     button.setAttribute('value', 'sbm'+name);
     button.setAttribute('id','submit-btn');
+    button.setAttribute('class','button shadow is-warning m-2 p-2 is-rounded');
+    button.innerHTML = "Submit"
 
     newDiv.appendChild(label);
     newDiv.appendChild(input);
