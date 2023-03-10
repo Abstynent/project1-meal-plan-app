@@ -1,9 +1,6 @@
-
-
 body {
-height: 1000px;
+  height: 100%;
 }
-
 a,
 a:after,
 a:before,
@@ -20,9 +17,6 @@ a:focus {
 }
 .img:hover {
   opacity: 0.3;
-}
-.containerheight {
-  height: 60%;
 }
 .border {
   border: solid black;
@@ -42,19 +36,33 @@ input {
   width: 100px;
   height: 25px;
   border-radius: 10px;
-  border: 2px solid #03d1b2;
   margin-right: 5px;
 }
 
-label {
-  margin-right: 5px;
-}
 .search {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 40vw;
-  height: 40vh;
+  width: 60vw;
+  height: 58vh;
   border-radius: 250px;  
 }
+.position {
+ position: fixed;
+ bottom: 0px;
+ width: 100%;
+
+}
+.height {
+  height: 1vh;
+}
+.mariginbottom {
+  margin-bottom: 22%;
+}
+.imgrecipe { 
+    max-width: 90%;  
+    max-height: 90%;    
+}
+
+
 
