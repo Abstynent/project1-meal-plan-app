@@ -10,12 +10,9 @@ const API_FILTER_INGREDIENT = 'filter.php?i=' // add ingredient
 const API_FILTER_CATEGORY = 'filter.php?c=' // add category
 const API_FILTER_AREA = 'filter.php?a=' // add country
 // <---- ---->
-
 const BTNS = document.querySelectorAll('button');
 const SEARCH_DISPLAY = $('<div id="search-display" class="columns m-4 is-align-items-center is-centered is-multiline">'); 
 const SEARCH = $('#search');
-var dataObject; // save selected recipe
-var submitBtnEl = $();
 
 // <-------------------- FUNCTIONS TO DISPLAY LIST OF ITEMS FROM API REQUEST
 // function to generate list based on user selection 1. by name 2. by ingredient 3. by category 4. by area (country)
@@ -136,6 +133,14 @@ function makeButton(e) {
     newDiv.appendChild(input);
     newDiv.appendChild(button);
     parent.appendChild(newDiv);
+
+    switch('food' + name) {
+        case 'foodcategory': 
+        $('#foodname').autocomplete({
+            source: test,
+        })
+        break;
+    }
 
     $('[id^="sbm"]').click(function() {
 
