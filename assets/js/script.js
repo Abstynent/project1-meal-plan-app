@@ -44,7 +44,6 @@ function fetchRecipeID(id) { // API_MEAL_URL + API_LOOKUP_ID + ID)
     fetch(API_MEAL_URL + API_LOOKUP_ID + id).then(function(response) {
         if(response.ok) {
             response.json().then(function(data) {
-                console.log(data);
                 renderSelectedRecipe(data);
             });
         };
@@ -52,8 +51,6 @@ function fetchRecipeID(id) { // API_MEAL_URL + API_LOOKUP_ID + ID)
 }; // 
 // function to display recipe based on user selection
 function selectRecipe(event) {
-    // console.log(event.target.parentNode.id);
-    // let recipe = dataObject.meals[event.target.parentNode.id];
     fetchRecipeID(event.target.parentNode.id);
 };
 
@@ -86,15 +83,14 @@ function renderIngredientsTable(recipe) {
     ingredientsTableEl.append(ingredientsTableBodyEl);
     
     for(let i=1; i<21; i++) {
-        console.log(recipe["strIngredient" + i])
-        if(recipe["strIngredient" + i] !== "") {
-            let ingredientsTableRowEl = $('<tr>');
-            let ingredientsTableMeasureEl = $('<td>').text(recipe["strMeasure" + i]);
-            let ingredientsTableItemEl = $('<td>').text(recipe["strIngredient" + i]);
+        if(recipe["strIngredient" + i] !== "" && recipe["strIngredient" + i] !== null) {
+                let ingredientsTableRowEl = $('<tr>');
+                let ingredientsTableMeasureEl = $('<td>').text(recipe["strMeasure" + i]);
+                let ingredientsTableItemEl = $('<td>').text(recipe["strIngredient" + i]);
     
-            ingredientsTableBodyEl.append(ingredientsTableRowEl);
-            ingredientsTableRowEl.append(ingredientsTableMeasureEl);
-            ingredientsTableRowEl.append(ingredientsTableItemEl);
+                ingredientsTableBodyEl.append(ingredientsTableRowEl);
+                ingredientsTableRowEl.append(ingredientsTableMeasureEl);
+                ingredientsTableRowEl.append(ingredientsTableItemEl);
         };
     };
 };
