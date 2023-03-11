@@ -97,10 +97,15 @@ SEARCH.on('click', function(event) {
     if(event.target.id === 'submit-btn') {
         let value = $('input[name="input-box"').val();
         switch(event.target.value) {
-            case 'sbmname': fetchData(API_MEAL_URL + API_SEARCH_NAME + value); break;
-            case 'sbmingredient': fetchData(API_MEAL_URL + API_FILTER_INGREDIENT + value); break;
-            case 'sbmcategory':  fetchData(API_MEAL_URL + API_FILTER_CATEGORY + value); break;
-            case 'sbmarea': fetchData(API_MEAL_URL + API_FILTER_AREA + value); break;
+            case 'mealSbmName': fetchData(API_MEAL_URL + API_SEARCH_NAME + value); break;
+            case 'mealSbmIngredient': fetchData(API_MEAL_URL + API_FILTER_INGREDIENT + value); break;
+            case 'mealSbmCategory':  fetchData(API_MEAL_URL + API_FILTER_CATEGORY + value); break;
+            case 'mealSbmArea': fetchData(API_MEAL_URL + API_FILTER_AREA + value); break;
+
+            case 'coctailSbmName': break;
+            case 'coctailSbmIngredient': break;
+            case 'coctailSbmCategory': break;
+            case 'coctailSbmArea': break;
         };
     };
 });
@@ -109,22 +114,28 @@ BTNS.forEach(btn => {
 })
 
 function makeButton(e) {
+    console.log(e.target);
     let parent = document.getElementById('search');
     let name = e.target.id;
     let div = document.getElementById('search-form');
     div.remove();
+
+    let param = window.location.search;
+    param = param.substring(1,param.length);
+    if(param !== "meal") $('#Area').hide();
+
 
     let newDiv = document.createElement('div');
     newDiv.setAttribute('class', 'search-form');
     newDiv.setAttribute('id', 'search-form');
     const label = document.createElement('label')
     let input = document.createElement('input');
-    input.setAttribute('id', 'food'+name)
+    input.setAttribute('id', param + name)
     input.setAttribute('name', 'input-box');
     input.setAttribute('class', "input is-primary is-rounded")
-    label.setAttribute('for' ,'food'+name);
+    label.setAttribute('for' ,param + name);
     let button = document.createElement('button');
-    button.setAttribute('value', 'sbm'+name);
+    button.setAttribute('value', param + 'Sbm'+ name);
     button.setAttribute('id','submit-btn');
     button.setAttribute('class','button shadow is-warning m-2 p-2 is-rounded');
     button.innerHTML = "Submit"
@@ -133,14 +144,6 @@ function makeButton(e) {
     newDiv.appendChild(input);
     newDiv.appendChild(button);
     parent.appendChild(newDiv);
-
-    switch('food' + name) {
-        case 'foodcategory': 
-        $('#foodname').autocomplete({
-            source: test,
-        })
-        break;
-    }
 
     $('[id^="sbm"]').click(function() {
 
@@ -155,3 +158,8 @@ function makeButton(e) {
         localStorage.setItem("searchBy", JSON.stringify(searchType));
     })
 }
+
+// If user is searching for cocktail, remove 'area' button
+$(function() {
+    if(window.location.search !== "?meal") $('#Area').hide();
+});
