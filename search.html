@@ -21,18 +21,22 @@
     > <img style="width: 260px; height: 80px" src="./assets/images/logo.png"></img>
     </nav>
 <section
-      class="hero-body containerheight mariginbottom is-justify-content-space-evenly is-flex-wrap-wrap is-flex"
+      class="hero-body containerheight mariginbottom  is-justify-content-space-evenly is-flex-wrap-wrap is-flex"
     >
     <seciton class="main-content m-4">
         <div class="search shadow is-primary " id="search">
             <h1 class="m-5 p-5 button shadow is-info has-text-weight-bold is-rounded">Search By </h1>
-         <div class="search-by m-1 p-1 is-flex is-flex-wrap-wrap is-justify-content-center" id="search-by">
+         <div class="search-by m-1 p-1 is-flex is-align-items-center is-flex-wrap-wrap is-justify-content-center" id="search-by">
         <button class="search-b button m-1 shadow is-primary is-rounded" id="Name">Name</button>
         <button class="search-b button m-1 shadow is-primary is-rounded" id="Ingredient">Ingredient</button>
-        <button class="search-b button m-1 shadow is-primary is-rounded" id="Category">Category</button>
+        <div class="select is-primary is-rounded">
+          <select name="category"></select>
+        </div>
+        
+
         <button class="search-b button m-1 shadow is-primary is-rounded" id="Area">Area</button>
         </div>
-            <div class="search-form" id="search-form">
+            <div class="search-form is-flex column" id="search-form">
                  </div>
         
         </div>

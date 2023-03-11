@@ -140,7 +140,7 @@ function makeButton(e) {
 
 
     let newDiv = document.createElement('div');
-    newDiv.setAttribute('class', 'search-form');
+    newDiv.setAttribute('class', 'search-form is-flex column is-flex-wrap-wrap');
     newDiv.setAttribute('id', 'search-form');
     const label = document.createElement('label')
     let input = document.createElement('input');
