@@ -1,5 +1,5 @@
 body {
-  height: 100%;
+  
 }
 a,
 a:after,
@@ -13,16 +13,16 @@ a:focus {
   border: solid black;
 }
 .border-radius {
-  border-radius: 10px;
+  border-radius: 35px;
 }
 .img:hover {
-  opacity: 0.3;
+  opacity: 0.5;
 }
 .border {
   border: solid black;
 }
 .shadow {
-  box-shadow: 5px 5px 5px 5px rgb(214, 214, 214)
+  box-shadow: 5px 5px 15px 5px rgb(214, 214, 214)
 }
 
 .search-form {
@@ -57,12 +57,22 @@ input {
   height: 1vh;
 }
 .mariginbottom {
-  margin-bottom: 22%;
+  margin-bottom: 32%;
 }
 .imgrecipe { 
     max-width: 90%;  
     max-height: 90%;    
 }
 
-
+.positionbackbtn {
+  position: absolute;
+  top: 42px;
+  left: 4%;
+  width: 45px;
+  height: 45px;
+  z-index: 1;
+}
+.z-index {
+  z-index: -1;
+}
 
