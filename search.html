@@ -30,11 +30,29 @@
         <button class="search-b button m-1 shadow is-primary is-rounded" id="Name">Name</button>
         <button class="search-b button m-1 shadow is-primary is-rounded" id="Ingredient">Ingredient</button>
         <div class="select is-primary is-rounded">
-          <select name="category"></select>
+          <select id="meal-category-select" name="meal-category">
+            <option value="" selected disabled>Category</option>
+          </select>
         </div>
-        
+        <div class="select is-primary is-rounded">
+          <select id="meal-area-select" name="meal-area">
+            <option value="" selected disabled>Area</option>
+          </select>
+        </div>
+        <div class="select is-primary is-rounded">
+          <select id="cocktail-category-select" name="cocktail-category">
+            <option value="" selected disabled>Category</option>
+          </select>
+        </div>
+        <div class="select is-primary is-rounded">
+          <select id="cocktail-alcoholic" name="cocktail-select">
+            <option value="" selected disabled>Select</option>
+            <option value="alc">Alcoholic</option>
+            <option value="non-alc">Non-Alcoholic</option>
+          </select>
+        </div>
 
-        <button class="search-b button m-1 shadow is-primary is-rounded" id="Area">Area</button>
+        <!-- <button class="search-b button m-1 shadow is-primary is-rounded" id="Area">Area</button> -->
         </div>
             <div class="search-form is-flex column" id="search-form">
                  </div>

@@ -9,7 +9,27 @@ const API_SEARCH_NAME = 'search.php?s=' // dish name at the end
 const API_FILTER_INGREDIENT = 'filter.php?i=' // add ingredient
 const API_FILTER_CATEGORY = 'filter.php?c=' // add category
 const API_FILTER_AREA = 'filter.php?a=' // add country
-// <---- ---->
+// Arrays for Categories and Area
+const MEAL_CATEGORIES = [
+    "Beef", "Breakfast", "Chicken", "Dessert",
+    "Goat", "Lamb", "Pasta", "Pork",
+    "Seafood", "Side", "Starter",
+    "Vegan", "Vegetarian", "Miscellaneous"
+];
+const MEAL_AREAS = [
+    "American", "British", "Canadian", "Chinese",
+    "Croatian", "Dutch", "Egyptian", "French",
+    "Greek", "Indian", "Irish", "Italian",
+    "Jamaican", "Japanese", "Kenyan", "Malaysian",
+    "Mexican", "Moroccan", "Polish", "Portuguese",
+    "Russian", "Spanish", "Thai", "Tunisian",
+    "Turkish", "Unknown", "Vietnamese"
+];
+const COCKTAIL_CATEGORIES = [
+    "Cocktail", "Shake", "Cocoa", "Shot",
+    "Coffee / Tea", "Homemade Liqueur", "Punch / Party Drink",
+    "Beer", "Soft Drink", "Other"
+];
 const BTNS = document.querySelectorAll('button');
 const SEARCH_DISPLAY = $('<div id="search-display" class="columns m-4 is-align-items-center is-centered is-multiline">'); 
 const SEARCH = $('#search');
@@ -173,10 +193,44 @@ function makeButton(e) {
     })
 }
 
+// append elements in select tags on the search page, based on user selection meal/drink
+function appendSelectEl(option) {
+    if(option) {
+        for(let i=0; i<MEAL_CATEGORIES.length; i++) {
+            let element = $('<option value="' + MEAL_CATEGORIES[i] + '">').text(MEAL_CATEGORIES[i]);
+            $('#meal-category-select').append(element)
+        };
+
+        for(let i=0; i<MEAL_AREAS.length; i++) {
+            let element = $('<option value="' + MEAL_AREAS[i] + '">').text(MEAL_AREAS[i]);
+            $('#meal-area-select').append(element)
+        };
+    } else {
+        for(let i=0; i<COCKTAIL_CATEGORIES.length; i++) {
+            let element = $('<option value="' + COCKTAIL_CATEGORIES[i] + '">').text(COCKTAIL_CATEGORIES[i]);
+            $('#cocktail-category-select').append(element)
+        };
+    }
+}
 // If user is searching for cocktail, remove 'area' button
 $(function() {
-    if(window.location.search !== "?meal") {
-        $('#Area').hide();
-        $('#Category').hide();
+    let path = $(location).attr('pathname');
+    path = path.slice(path.lastIndexOf("/")+1);
+
+    if(path === "search.html") {
+        let selectedOption =  window.location.search; // can that be in jquery?
+        if(selectedOption === "?meal") {
+            appendSelectEl(true);
+            $('#Area').hide();
+            $('#Category').hide();
+            $('#cocktail-category-select').hide();
+            $('#cocktail-alcoholic').hide();
+        } else if(selectedOption === "?cocktail") {
+            $('#meal-area-select').hide();
+            $('#meal-category-select').hide();
+            appendSelectEl(false);
+        } else { // go back to index.html if selection was not made
+            window.location.href = "index.html";
+        };
     }
 });
