@@ -31,7 +31,7 @@ const COCKTAIL_CATEGORIES = [
     "Beer", "Soft Drink", "Other"
 ];
 const BTNS = document.querySelectorAll('button');
-const SEARCH_DISPLAY = $('<div id="search-display" class="columns m-4 is-align-items-center is-centered is-multiline">'); 
+const SEARCH_DISPLAY = $('<div id="search-display" class="columns is-align-items-center is-centered is-multiline">'); 
 const SEARCH = $('#search');
 
 // <-------------------- FUNCTIONS TO DISPLAY LIST OF ITEMS FROM API REQUEST
@@ -49,7 +49,7 @@ function fetchData(url, h) {
                     let strType = h ? handler[i].strMeal : handler[i].strDrink;
                     let column = $('<div class="column is-link border-radius is-one-fifth has-text-centered m-1">');
                     let link = $('<a id="' + id + '" value="' + h + '" onclick="selectRecipe(event)">');
-                    let img = $('<img class="shadow border-radius" src="' + img_url + '" alt="' + strType +'">');
+                    let img = $('<img class="shadow img border-radius" src="' + img_url + '" alt="' + strType +'">');
                     let pTag = $('<p>').text(strType);
                     let main = $('.main-content');
                     main.empty().append(SEARCH_DISPLAY);
@@ -160,7 +160,7 @@ function makeButton(e) {
 
 
     let newDiv = document.createElement('div');
-    newDiv.setAttribute('class', 'search-form is-flex column is-flex-wrap-wrap');
+    newDiv.setAttribute('class', 'search-form is-flex column is-flex-wrap');
     newDiv.setAttribute('id', 'search-form');
     const label = document.createElement('label')
     let input = document.createElement('input');
