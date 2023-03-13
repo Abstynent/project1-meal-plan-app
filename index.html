@@ -12,9 +12,11 @@
   </head>
   <body>
     <nav
-      class="has-text-white p-5 navbar is-fixed-top shadow has-background-primary is-flex is-fluid navbar is-justify-content-space-around"
-    >
-      <img style="width: 234px; height: 72px" src="./assets/images/logo.png"></img>
+      class="has-text-white p-1 navbar is-fixed-top is-align-items-center shadow has-background-primary is-flex is-fluid navbar is-justify-content-space-around"
+    ><div class="is-flex is-align-items-center is-flex-direction-column">
+      <p class="timecolor  timeborder  border-radius" id="currentDay"></p>
+        <img class="navbar-image" src="./assets/images/logo.png"></img>
+        <p class="timecolor  timeborder border-radius" id="currentTime"></p>
     </nav>
 
     <section
@@ -53,5 +55,10 @@
     </footer>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="./assets/js/script.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
