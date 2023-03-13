@@ -42,6 +42,10 @@ function fetchData(url, h) {
         if(response.ok) { 
             response.json().then(function (data) {
                 let handler = h ? data.meals : data.drinks;
+                if(handler === null) { 
+                    displayErroMsg();
+                    return; 
+                };
 
                 for(let i=0; i<handler.length; i++) {
                     let img_url = h ? handler[i].strMealThumb : handler[i].strDrinkThumb;
@@ -59,6 +63,8 @@ function fetchData(url, h) {
                     link.append(img).append(pTag);          
                 };
             });
+        } else {
+            console.log("unable to connect, wrong item");
         };
     });
 };
@@ -164,7 +170,7 @@ function makeButton(e) {
     newDiv.setAttribute('id', 'search-form');
     const label = document.createElement('label')
     let input = document.createElement('input');
-    input.setAttribute('id', param + name)
+    input.setAttribute('id', 'search-box-input')
     input.setAttribute('name', 'input-box');
     input.setAttribute('class', "input is-primary is-rounded")
     label.setAttribute('for' ,param + name);
@@ -234,3 +240,11 @@ $(function() {
         };
     }
 });
+
+function displayErroMsg() {
+    let value = $('input[name="input-box"').val();
+    let msg = $('<h1>').text('"' + value + '" not found.');
+    msg.addClass('has-text-danger title');
+    msg.insertBefore('#search-box-input');
+
+};
