@@ -33,6 +33,10 @@ const COCKTAIL_CATEGORIES = [
 const BTNS = document.querySelectorAll('button');
 const SEARCH_DISPLAY = $('<div id="search-display" class="columns is-align-items-center is-centered is-multiline">'); 
 const SEARCH = $('#search');
+const SELECT_MEAL_CATEGORY = $('#meal-category-select');
+const SELECT_MEAL_AREA = $('#meal-area-select');
+const SELECT_COCKTAIL_CATEGORY = $('#cocktail-category-select');
+const SELECT_COCKTAIL_ALCOHOLIC = $('#cocktail-alcoholic');
 
 // <-------------------- FUNCTIONS TO DISPLAY LIST OF ITEMS FROM API REQUEST
 // function to generate list based on user selection 
@@ -42,6 +46,10 @@ function fetchData(url, h) {
         if(response.ok) { 
             response.json().then(function (data) {
                 let handler = h ? data.meals : data.drinks;
+                if(handler === null) { 
+                    displayErroMsg();
+                    return; 
+                };
 
                 for(let i=0; i<handler.length; i++) {
                     let img_url = h ? handler[i].strMealThumb : handler[i].strDrinkThumb;
@@ -59,7 +67,7 @@ function fetchData(url, h) {
                     link.append(img).append(pTag);          
                 };
             });
-        };
+        }; 
     });
 };
 
@@ -90,7 +98,7 @@ function renderSelectedRecipe(recipe, h ) {
     let imgColumnEl = $('<div class="column m-4">')
     let imgFrameEl = $('<figure class="image">');
     let imgEl = $('<img class="shadow image imgrecipe border-radius" src="' + imgUrl +'" alt="' + strType +'">');
-    let instructionsEl = $('<div class="rows m-4">').text(handler[0].strInstructions);
+    let instructionsEl = $('<div id="recipe-description" class="rows m-4">').text(handler[0].strInstructions);
     imgColumnEl.append(imgFrameEl);
     imgFrameEl.append(imgEl);
     SEARCH_DISPLAY.empty().append(imgColumnEl);
@@ -120,7 +128,12 @@ function renderIngredientsTable(recipe, h ) {
         if(recipe["strIngredient" + i] !== "" && recipe["strIngredient" + i] !== null) {
                 let ingredientsTableRowEl = $('<tr>');
                 let ingredientsTableMeasureEl = $('<td>').text(recipe["strMeasure" + i]);
-                let ingredientsTableItemEl = $('<td>').text(recipe["strIngredient" + i]);
+                let ingredientsTableItemEl = $('<td>');
+                let ingredientsLinkEl = 
+                    $('<a id="' + recipe["strIngredient" + i] +'" value="' + h 
+                    + '" onclick="fetchSearchByIngredient(event)">').text(recipe["strIngredient" + i]);
+
+                ingredientsTableItemEl.append(ingredientsLinkEl);
     
                 ingredientsTableBodyEl.append(ingredientsTableRowEl);
                 ingredientsTableRowEl.append(ingredientsTableMeasureEl);
@@ -129,6 +142,15 @@ function renderIngredientsTable(recipe, h ) {
     };
 };
 
+function fetchSearchByIngredient(e) { 
+    let h = e.target.getAttribute('value') === "true" ? true : false;
+    let value = e.target.text;
+    let url = h ? API_MEAL_URL : API_COCKTAIL_URL;
+    $('#hero-body').empty();
+    SEARCH_DISPLAY.empty();
+    $('#recipe-description').empty();
+    fetchData(url + API_FILTER_INGREDIENT + value, h);
+};
 
 SEARCH.on('click', function(event) {
     if(event.target.id === 'submit-btn') {
@@ -136,12 +158,12 @@ SEARCH.on('click', function(event) {
         switch(event.target.value) {
             case 'mealSbmName': fetchData(API_MEAL_URL + API_SEARCH_NAME + value, true); break;
             case 'mealSbmIngredient': fetchData(API_MEAL_URL + API_FILTER_INGREDIENT + value, true); break;
-            case 'mealSbmCategory':  fetchData(API_MEAL_URL + API_FILTER_CATEGORY + value, true); break;
-            case 'mealSbmArea': fetchData(API_MEAL_URL + API_FILTER_AREA + value, true); break;
+            // case 'mealSbmCategory':  fetchData(API_MEAL_URL + API_FILTER_CATEGORY + value, true); break;
+            // case 'mealSbmArea': fetchData(API_MEAL_URL + API_FILTER_AREA + value, true); break;
 
             case 'cocktailSbmName': fetchData(API_COCKTAIL_URL + API_SEARCH_NAME + value, false); break;
             case 'cocktailSbmIngredient': fetchData(API_COCKTAIL_URL + API_FILTER_INGREDIENT + value, false); break;
-            case 'cocktailSbmCategory': fetchData(API_COCKTAIL_URL + API_FILTER_CATEGORY + false); break;
+            // case 'cocktailSbmCategory': fetchData(API_COCKTAIL_URL + API_FILTER_CATEGORY + false); break;
         };
     };
 });
@@ -164,7 +186,7 @@ function makeButton(e) {
     newDiv.setAttribute('id', 'search-form');
     const label = document.createElement('label')
     let input = document.createElement('input');
-    input.setAttribute('id', param + name)
+    input.setAttribute('id', 'search-box-input')
     input.setAttribute('name', 'input-box');
     input.setAttribute('class', "input is-primary is-rounded")
     label.setAttribute('for' ,param + name);
@@ -212,10 +234,9 @@ function appendSelectEl(option) {
         };
     }
 }
-// If user is searching for cocktail, remove 'area' button
+
 $(function() {
-    let path = $(location).attr('pathname');
-    path = path.slice(path.lastIndexOf("/")+1);
+    let path = getPathValue();
 
     if(path === "search.html") {
         let selectedOption =  window.location.search; // can that be in jquery?
@@ -234,6 +255,7 @@ $(function() {
         };
     }
 });
+
 
 $(function() {
     if(window.location.search == "?meal") {
@@ -269,3 +291,36 @@ async function setTime() {
   };
   setTime();
   setInterval(setTime, 1000);
+
+function getPathValue() {
+    let path = $(location).attr('pathname');
+    return path.slice(path.lastIndexOf("/")+1);
+};
+// Function to create dom element and display it on the page in case of fetch error
+function displayErroMsg() {
+    let value = $('input[name="input-box"').val();
+    let msg = $('<h1>').text('"' + value + '" not found.');
+    msg.addClass('has-text-danger title');
+    msg.insertBefore('#search-box-input');
+
+};
+
+// SELECT event listeners
+SELECT_MEAL_CATEGORY.change(function() {
+    let value = SELECT_MEAL_CATEGORY.val();
+    fetchData(API_MEAL_URL + API_FILTER_CATEGORY + value, true);
+});
+SELECT_MEAL_AREA.change(function() {
+    let value = SELECT_MEAL_AREA.val();
+    fetchData(API_MEAL_URL + API_FILTER_AREA + value, true);
+});
+SELECT_COCKTAIL_CATEGORY.change(function() {
+    let value = SELECT_COCKTAIL_CATEGORY.val();
+    fetchData(API_COCKTAIL_URL + API_FILTER_CATEGORY + value, false);
+});
+SELECT_COCKTAIL_ALCOHOLIC.change(function() {
+    let value = SELECT_COCKTAIL_ALCOHOLIC.val();
+    fetchData(API_COCKTAIL_URL + API_FILTER_AREA + value, false);
+});
+
+
