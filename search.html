@@ -28,36 +28,40 @@ class="has-text-white p-5 shadow navbar is-fixed-top z-index has-background-prim
     <seciton class="main-content m-4">
         <div class="search shadow is-primary " id="search">
             <h1 class="m-5 p-4 border-radius shadow has-background-link has-text-white has-text-weight-bold">Search By </h1>
-         <div class="search-by m-2 p-1 is-flex is-align-items-center is-flex-wrap-wrap is-justify-content-center" id="search-by">
-        <button class="search-b button m-1 shadow is-primary is-rounded" id="Name">Name</button>
-        <button class="search-b button m-1 shadow is-primary is-rounded" id="Ingredient">Ingredient</button>
-        <div class="select is-primary is-rounded">
-          <select id="meal-category-select" name="meal-category">
-            <option value="" selected disabled>Category</option>
-          </select>
-        </div>
-        <div class="select is-primary is-rounded">
-          <select id="meal-area-select" name="meal-area">
-            <option value="" selected disabled>Area</option>
-          </select>
-        </div>
-        <div class="select is-primary is-rounded">
-          <select id="cocktail-category-select" name="cocktail-category">
-            <option value="" selected disabled>Category</option>
-          </select>
-        </div>
-        <div class="select is-primary is-rounded">
-          <select id="cocktail-alcoholic" name="cocktail-select">
-            <option value="" selected disabled>Select</option>
-            <option value="alc">Alcoholic</option>
-            <option value="non-alc">Non-Alcoholic</option>
-          </select>
-        </div>
 
+            <div class="search-by m-2 p-1 is-flex is-align-items-center is-flex-wrap-wrap is-justify-content-center" id="search-by">
+              <button class="search-b button m-1 shadow is-primary is-rounded" id="Name">Name</button>
+              <button class="search-b button m-1 shadow is-primary is-rounded" id="Ingredient">Ingredient</button>
+
+              <div id="meal-category-div" class="select is-primary is-rounded">
+                <select id="meal-category-select" name="meal-category">
+                  <option value="" selected disabled>Category</option>
+                </select>
+              </div>
+              
+              <div id="meal-area-div" class="select is-primary is-rounded">
+                <select id="meal-area-select" name="meal-area">
+                  <option value="" selected disabled>Area</option>
+                </select>
+              </div>
+
+              <div id="cocktail-category-div" class="select is-primary is-rounded">
+                <select id="cocktail-category-select" name="cocktail-category">
+                  <option value="" selected disabled>Category</option>
+                </select>
+              </div>
+
+              <div id="cocktail-alcoholic-div" class="select is-primary is-rounded">
+                <select id="cocktail-alcoholic" name="cocktail-select">
+                  <option value="" selected disabled>Select</option>
+                  <option value="alc">Alcoholic</option>
+                  <option value="non-alc">Non-Alcoholic</option>
+                </select>
+              </div>
         <!-- <button class="search-b button m-1 shadow is-primary is-rounded" id="Area">Area</button> -->
-        </div>
-            <div class="search-form is-flex column" id="search-form">
-                 </div>
+            </div>
+
+            <div class="search-form is-flex column" id="search-form"></div>
         
         </div>
         </seciton>
