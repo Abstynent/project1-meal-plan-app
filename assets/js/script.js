@@ -98,7 +98,7 @@ function renderSelectedRecipe(recipe, h ) {
     let imgColumnEl = $('<div class="column m-4">')
     let imgFrameEl = $('<figure class="image">');
     let imgEl = $('<img class="shadow image imgrecipe border-radius" src="' + imgUrl +'" alt="' + strType +'">');
-    let instructionsEl = $('<div class="rows m-4">').text(handler[0].strInstructions);
+    let instructionsEl = $('<div id="recipe-description" class="rows m-4">').text(handler[0].strInstructions);
     imgColumnEl.append(imgFrameEl);
     imgFrameEl.append(imgEl);
     SEARCH_DISPLAY.empty().append(imgColumnEl);
@@ -128,7 +128,12 @@ function renderIngredientsTable(recipe, h ) {
         if(recipe["strIngredient" + i] !== "" && recipe["strIngredient" + i] !== null) {
                 let ingredientsTableRowEl = $('<tr>');
                 let ingredientsTableMeasureEl = $('<td>').text(recipe["strMeasure" + i]);
-                let ingredientsTableItemEl = $('<td>').text(recipe["strIngredient" + i]);
+                let ingredientsTableItemEl = $('<td>');
+                let ingredientsLinkEl = 
+                    $('<a id="' + recipe["strIngredient" + i] +'" value="' + h 
+                    + '" onclick="fetchSearchByIngredient(event)">').text(recipe["strIngredient" + i]);
+
+                ingredientsTableItemEl.append(ingredientsLinkEl);
     
                 ingredientsTableBodyEl.append(ingredientsTableRowEl);
                 ingredientsTableRowEl.append(ingredientsTableMeasureEl);
@@ -137,6 +142,15 @@ function renderIngredientsTable(recipe, h ) {
     };
 };
 
+function fetchSearchByIngredient(e) { 
+    let h = e.target.getAttribute('value') === "true" ? true : false;
+    let value = e.target.text;
+    let url = h ? API_MEAL_URL : API_COCKTAIL_URL;
+    $('#hero-body').empty();
+    SEARCH_DISPLAY.empty();
+    $('#recipe-description').empty();
+    fetchData(url + API_FILTER_INGREDIENT + value, h);
+};
 
 SEARCH.on('click', function(event) {
     if(event.target.id === 'submit-btn') {
@@ -272,3 +286,4 @@ SELECT_COCKTAIL_ALCOHOLIC.change(function() {
     let value = SELECT_COCKTAIL_ALCOHOLIC.val();
     fetchData(API_COCKTAIL_URL + API_FILTER_AREA + value, false);
 });
+
