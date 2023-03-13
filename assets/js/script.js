@@ -150,7 +150,7 @@ BTNS.forEach(btn => {
 })
 
 function makeButton(e) {
-    let parent = document.getElementById('search');
+    let parent = document.getElementById('search-by-div');
     let name = e.target.id;
     let div = document.getElementById('search-form');
     div.remove();
@@ -160,7 +160,7 @@ function makeButton(e) {
 
 
     let newDiv = document.createElement('div');
-    newDiv.setAttribute('class', 'search-form is-flex column is-flex-wrap-wrap');
+    newDiv.setAttribute('class', 'search-form is-flex column m-2 p-2 is-flex-wrap-wrap');
     newDiv.setAttribute('id', 'search-form');
     const label = document.createElement('label')
     let input = document.createElement('input');
@@ -171,7 +171,7 @@ function makeButton(e) {
     let button = document.createElement('button');
     button.setAttribute('value', param + 'Sbm'+ name);
     button.setAttribute('id','submit-btn');
-    button.setAttribute('class','button shadow is-warning m-2 p-2 is-rounded');
+    button.setAttribute('class','button shadow is-warning m-3 p-4 is-rounded');
     button.innerHTML = "Submit"
 
     newDiv.appendChild(label);

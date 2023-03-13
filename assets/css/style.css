@@ -25,9 +25,9 @@ a:focus {
 .search-form {
   display: flex;
   flex-direction: row;
-  height: 100px;
   justify-content: center;
-  align-items: center;
+  align-items: center
+  
 }
 input {
   width: 100px;
