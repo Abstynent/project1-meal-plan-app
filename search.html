@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,59 +12,89 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
     />
-<link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <nav id="navbar" >
+    <nav id="navbar">
       <div
-class="has-text-white p-5 shadow navbar is-fixed-top z-index has-background-primary is-flex is-fluid navbar is-justify-content-space-around">
-     <img style="width: 260px; height: 80px" src="./assets/images/logo.png"/>
-  </div>
+        class="has-text-white p-5 shadow navbar is-fixed-top z-index has-background-primary is-flex is-fluid navbar is-justify-content-space-around"
+      >
+        <img
+          style="width: 260px; height: 80px"
+          src="./assets/images/logo.png"
+        />
+      </div>
     </nav>
-<section
-      class="hero-body  mariginbottom  is-justify-content-space-evenly is-flex-wrap-wrap is-flex"
+    <section
+      class="hero-body mariginbottom is-justify-content-space-evenly is-flex-wrap-wrap is-flex"
     >
-    <seciton class="main-content m-4">
-        <div class="search shadow is-primary " id="search">
-            <h1 class="m-5 p-4 border-radius shadow has-background-link has-text-white has-text-weight-bold">Search By </h1>
+      <seciton class="main-content m-4">
+        <div class="search shadow is-primary" id="search">
+          <h1
+            class="m-5 p-4 border-radius shadow has-background-link has-text-white has-text-weight-bold"
+          >
+            Search By
+          </h1>
 
-            <div class="search-by m-2 p-1 is-flex is-align-items-center is-flex-wrap-wrap is-justify-content-center" id="search-by">
-              <button class="search-b button m-1 shadow is-primary is-rounded" id="Name">Name</button>
-              <button class="search-b button m-1 shadow is-primary is-rounded" id="Ingredient">Ingredient</button>
-
-              <div id="meal-category-div" class="select is-primary is-rounded">
-                <select id="meal-category-select" name="meal-category">
-                  <option value="" selected disabled>Category</option>
-                </select>
-              </div>
-              
-              <div id="meal-area-div" class="select is-primary is-rounded">
-                <select id="meal-area-select" name="meal-area">
-                  <option value="" selected disabled>Area</option>
-                </select>
-              </div>
-
-              <div id="cocktail-category-div" class="select is-primary is-rounded">
-                <select id="cocktail-category-select" name="cocktail-category">
-                  <option value="" selected disabled>Category</option>
-                </select>
-              </div>
-
-              <div id="cocktail-alcoholic-div" class="select is-primary is-rounded">
-                <select id="cocktail-alcoholic" name="cocktail-select">
-                  <option value="" selected disabled>Select</option>
-                  <option value="alc">Alcoholic</option>
-                  <option value="non-alc">Non-Alcoholic</option>
-                </select>
-              </div>
-              
-        <!-- <button class="search-b button m-1 shadow is-primary is-rounded" id="Area">Area</button> -->
+          <div
+            class="search-by m-2 p-1 is-flex is-align-items-center is-flex-wrap-wrap is-justify-content-center"
+            id="search-by"
+          >
+            <button
+              class="search-b button m-1 shadow is-primary is-rounded"
+              id="Name"
+            >
+              Name
+            </button>
+            <button
+              class="search-b button m-1 shadow is-primary is-rounded"
+              id="Ingredient"
+            >
+              Ingredient
+            </button>
+          </div>
+          <div id="search-by-div">
+            <div class="search-form is-flex column" id="search-form"></div>
+          </div>
+          <div
+            class="search-by m-2 p-1 is-flex is-align-items-center is-flex-wrap-wrap is-justify-content-center"
+            id="search-by"
+          >
+            <div id="meal-category-div" class="select is-primary is-rounded">
+              <select id="meal-category-select" name="meal-category">
+                <option value="" selected disabled>Category</option>
+              </select>
             </div>
 
-            <div class="search-form is-flex column" id="search-form"></div>
-        
+            <div id="meal-area-div" class="select is-primary is-rounded">
+              <select id="meal-area-select" name="meal-area">
+                <option value="" selected disabled>Area</option>
+              </select>
+            </div>
+
+            <div
+              id="cocktail-category-div"
+              class="select is-primary is-rounded"
+            >
+              <select id="cocktail-category-select" name="cocktail-category">
+                <option value="" selected disabled>Category</option>
+              </select>
+            </div>
+
+            <div
+              id="cocktail-alcoholic-div"
+              class="select is-primary is-rounded"
+            >
+              <select id="cocktail-alcoholic" name="cocktail-select">
+                <option value="" selected disabled>Select</option>
+                <option value="alc">Alcoholic</option>
+                <option value="non-alc">Non-Alcoholic</option>
+              </select>
+            </div>
+            <!-- <button class="search-b button m-1 shadow is-primary is-rounded" id="Area">Area</button> -->
+          </div>
         </div>
-        </seciton>
+      </seciton>
     </section>
     <footer class="footer shadow height position shadow">
       <div class="has-text-centered">
@@ -73,9 +102,21 @@ class="has-text-white p-5 shadow navbar is-fixed-top z-index has-background-prim
           <h6 class="is-size-5 has-text-weight-bold is-">Created By</h6>
         </div>
         <div>
-          <a class="button shadow is-primary is-rounded" href="https://github.com/jsen07">Jays</a>
-          <a class="button shadow is-link is-rounded" href="https://github.com/kristiyantefov">Kris</a>
-          <a class="button shadow is-info is-rounded" href="https://github.com/Abstynent">Lukasz</a>
+          <a
+            class="button shadow is-primary is-rounded"
+            href="https://github.com/jsen07"
+            >Jays</a
+          >
+          <a
+            class="button shadow is-link is-rounded"
+            href="https://github.com/kristiyantefov"
+            >Kris</a
+          >
+          <a
+            class="button shadow is-info is-rounded"
+            href="https://github.com/Abstynent"
+            >Lukasz</a
+          >
         </div>
       </div>
     </footer>
@@ -84,4 +125,3 @@ class="has-text-white p-5 shadow navbar is-fixed-top z-index has-background-prim
     <script src="./assets/js/script.js"></script>
   </body>
 </html>
-
