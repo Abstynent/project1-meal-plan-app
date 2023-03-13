@@ -256,6 +256,7 @@ $(function() {
     }
 });
 
+
 function getPathValue() {
     let path = $(location).attr('pathname');
     return path.slice(path.lastIndexOf("/")+1);
@@ -286,7 +287,6 @@ SELECT_COCKTAIL_ALCOHOLIC.change(function() {
     let value = SELECT_COCKTAIL_ALCOHOLIC.val();
     fetchData(API_COCKTAIL_URL + API_FILTER_AREA + value, false);
 });
-
 
 
 $(function() {
@@ -323,3 +323,36 @@ async function setTime() {
   };
   setTime();
   setInterval(setTime, 1000);
+
+function getPathValue() {
+    let path = $(location).attr('pathname');
+    return path.slice(path.lastIndexOf("/")+1);
+};
+// Function to create dom element and display it on the page in case of fetch error
+function displayErroMsg() {
+    let value = $('input[name="input-box"').val();
+    let msg = $('<h1>').text('"' + value + '" not found.');
+    msg.addClass('has-text-danger title');
+    msg.insertBefore('#search-box-input');
+
+};
+
+// SELECT event listeners
+SELECT_MEAL_CATEGORY.change(function() {
+    let value = SELECT_MEAL_CATEGORY.val();
+    fetchData(API_MEAL_URL + API_FILTER_CATEGORY + value, true);
+});
+SELECT_MEAL_AREA.change(function() {
+    let value = SELECT_MEAL_AREA.val();
+    fetchData(API_MEAL_URL + API_FILTER_AREA + value, true);
+});
+SELECT_COCKTAIL_CATEGORY.change(function() {
+    let value = SELECT_COCKTAIL_CATEGORY.val();
+    fetchData(API_COCKTAIL_URL + API_FILTER_CATEGORY + value, false);
+});
+SELECT_COCKTAIL_ALCOHOLIC.change(function() {
+    let value = SELECT_COCKTAIL_ALCOHOLIC.val();
+    fetchData(API_COCKTAIL_URL + API_FILTER_AREA + value, false);
+});
+
+
