@@ -221,13 +221,13 @@ $(function() {
         let selectedOption =  window.location.search; // can that be in jquery?
         if(selectedOption === "?meal") {
             appendSelectEl(true);
-            $('#Area').hide();
-            $('#Category').hide();
-            $('#cocktail-category-select').hide();
-            $('#cocktail-alcoholic').hide();
+            // $('#meal-area-div').hide();
+            // $('#meal-category-div').hide();
+            $('#cocktail-category-div').hide();
+            $('#cocktail-alcoholic-div').hide();
         } else if(selectedOption === "?cocktail") {
-            $('#meal-area-select').hide();
-            $('#meal-category-select').hide();
+            $('#meal-area-div').hide();
+            $('#meal-category-div').hide();
             appendSelectEl(false);
         } else { // go back to index.html if selection was not made
             window.location.href = "index.html";
