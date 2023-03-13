@@ -5,6 +5,9 @@ a:focus {
     text-decoration: none;
     color: black;
 }
+button:focus {
+  background-color: red;
+}
 
 .border {
   border: solid black;
@@ -60,13 +63,12 @@ input {
 }
 
 .positionbackbtn {
-  position: absolute;
-  top: 42px;
-  left: 4%;
-  width: 45px;
-  height: 45px;
-  z-index: 1;
+
+  width: 35px;
+  height: 35px;
+
 }
+
 .z-index {
   z-index: -1;
 }
@@ -79,4 +81,48 @@ section {
 .imagemain {
   width: 200px;
   height: 200px;
+}
+.navbar-image {
+  width: 210px; 
+  height: 64px
+}
+.shadowtime {
+  color: hsl(171, 100%, 41%);
+  color: #3dbeb1
+}
+.timecolor {
+  background-color: #3dbeb1;
+  color: white;
+  font-weight: bold;
+  font-size: medium;
+  padding: 2px;
+  margin: 1px;
+}
+.timeshadow {
+  box-shadow: 1px 1px 5px 1px hsl(171, 100%, 37%);
+}
+.timeborder {
+  border: solid 1px black;
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+}
+
+@media screen and (max-width: 1500px) {
+  .navbar-image {
+    width: 168px; 
+    height: 51px
+  }
+  
+}
+@media screen and (max-width: 790px) {
+  .navbar-image {
+    width: 168px; 
+    height: 51px
+  }
+  .timecolor {
+    background-color: #3dbeb1;
+    color: white;
+    font-weight: bold;
+    font-size: small;
+    padding: 2px;
+    margin: 1px;
 }

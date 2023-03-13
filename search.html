@@ -15,20 +15,21 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <nav id="navbar">
+    <nav>
       <div
-        class="has-text-white p-5 shadow navbar is-fixed-top z-index has-background-primary is-flex is-fluid navbar is-justify-content-space-around"
+      id="navbar" class="has-text-white p-1 shadow navbar is-align-items-center is-fixed-top z-index has-background-primary is-flex is-fluid navbar is-justify-content-space-around"
       >
-        <img
-          style="width: 260px; height: 80px"
-          src="./assets/images/logo.png"
-        />
+      <div class="is-flex is-align-items-center is-flex-direction-column">
+        <p class="timecolor  timeborder   border-radius" id="currentDay"></p>
+        <img class="navbar-image" src="./assets/images/logo.png"></img>
+        <p class="timecolor  timeborder   border-radius" id="currentTime"></p>
+        </div>
       </div>
     </nav>
     <section
       class="hero-body mariginbottom is-justify-content-space-evenly is-flex-wrap-wrap is-flex"
     >
-      <seciton class="main-content m-4">
+      <seciton class="main-content m-5">
         <div class="search shadow is-primary" id="search">
           <h1
             class="m-5 p-4 border-radius shadow has-background-link has-text-white has-text-weight-bold"
@@ -123,5 +124,10 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="./assets/js/script.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
