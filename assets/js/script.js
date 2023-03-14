@@ -146,9 +146,7 @@ function fetchSearchByIngredient(e) {
     let h = e.target.getAttribute('value') === "true" ? true : false;
     let value = e.target.text;
     let url = h ? API_MEAL_URL : API_COCKTAIL_URL;
-    // $('#hero-body').empty();
     SEARCH_DISPLAY.empty();
-    // $('.recipe-description').remove();
     $('#recipe-description').remove();
     fetchData(url + API_FILTER_INGREDIENT + value, h);
 };
