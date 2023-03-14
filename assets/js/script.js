@@ -61,7 +61,7 @@ function fetchData(url, h) {
                     let img_url = h ? handler[i].strMealThumb : handler[i].strDrinkThumb;
                     let id = h ? handler[i].idMeal : handler[i].idDrink;
                     let strType = h ? handler[i].strMeal : handler[i].strDrink;
-                    let column = $('<div class="column is-link border-radius is-one-fifth has-text-centered m-1">');
+                    let column = $('<div class="column is-link border-radius is-flex-direction-column is-align-self-flex-start is-one-fifth has-text-centered m-1">');
                     let link = $('<a id="' + id + '" value="' + h + '" onclick="selectRecipe(event)">');
                     let img = $('<img class="shadow img border-radius" src="' + img_url + '" alt="' + strType +'">');
                     let pTag = $('<p>').text(strType);
@@ -314,7 +314,7 @@ function displayErroMsg(bln) {
     $('.error-msg').remove();
 
     let msg = bln ? $('<h1>').text('"' + value + '" not found.') : $('<h1>').text('Input field cannot be empty.');
-    msg.addClass('has-text-danger title error-msg');
+    msg.addClass('has-text-white  border-radius  has-background-danger has-text-centered m-2 p-3 title');
     msg.insertBefore('#search-box-input');
 
 };
@@ -342,12 +342,12 @@ $(function() {
     if(window.location.search == "?meal") {
         let backNav = document.getElementById("navbar")
         let backBtn = document.createElement("div")
-        backBtn.innerHTML = `<a href="./search.html?meal"><img class="positionbackbtn" src="./assets/images/left-arrow.png" /></a>`
+        backBtn.innerHTML = `<a href="./search.html?meal"><img class="positionbackbtn" src="./assets/images/search.png" /></a>`
         backNav.prepend(backBtn) 
     } else if(window.location.search == "?cocktail") {
         let backNav = document.getElementById("navbar")
         let backBtn = document.createElement("div")
-        backBtn.innerHTML = `<a href="./search.html?cocktail"><img class="positionbackbtn" src="./assets/images/left-arrow.png" /></a>`
+        backBtn.innerHTML = `<a href="./search.html?cocktail"><img class="positionbackbtn" src="./assets/images/search.png" /></a>`
         backNav.prepend(backBtn) 
     }
 
@@ -415,7 +415,7 @@ function previous () {
             let img_url = backHandler[i].strMealThumb;
             let id = backHandler[i].idMeal;
             let strType = backHandler[i].strMeal;
-            let column = $('<div class="column is-link border-radius is-one-fifth has-text-centered m-1">');
+            let column = $('<div class="column is-link border-radius  is-one-fifth has-text-centered m-1">');
             let link = $('<a id="' + id + '" value="' + meal + '" onclick="selectRecipe(event)">');
             let img = $('<img class="shadow img border-radius" src="' + img_url + '" alt="' + strType +'">');
             let pTag = $('<p>').text(strType);
