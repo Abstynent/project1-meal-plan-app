@@ -94,11 +94,11 @@ function fetchRecipeID(id, h) {
             response.json().then(function(data) {
 
                 if(window.location.search == "?meal") {
-                currentRecipe = data["meals"][0]; //get selected meal data
+                currentRecipe = data["meals"][0].idMeal; //get selected meal data
                 }
 
                 if(window.location.search == "?cocktail") {
-                currentDrink = data["drinks"][0]; //get selected drinks data
+                currentDrink = data["drinks"][0].idDrink; //get selected drinks data
                 }
 
                 renderSelectedRecipe(data, h);
@@ -189,18 +189,14 @@ function fetchSearchByIngredient(e) {
 
 //save function to save recipes and store recipe into localstorage
 function save (){
-    if(window.location.search == "?meal") {
-        if (!savedRecipes.includes(currentRecipe)){
+
             savedRecipes.push(currentRecipe);
-            localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
-        }
-    }
-    if(window.location.search == "?cocktail") {
-        if (!savedDrinks.includes(currentDrink)) {
-            savedDrinks.push(currentDrink);
-            localStorage.setItem('savedDrinks', JSON.stringify(savedDrinks));
-        }
-    }
+        
+
+
+            savedRecipes.push(currentDrink);
+            localStorage.setItem('savedRecipes', JSON.stringify(savedDrinks));
+    
 }
 
 SEARCH.on('click', function(event) {
