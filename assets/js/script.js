@@ -38,6 +38,10 @@ const SELECT_MEAL_AREA = $('#meal-area-select');
 const SELECT_COCKTAIL_CATEGORY = $('#cocktail-category-select');
 const SELECT_COCKTAIL_ALCOHOLIC = $('#cocktail-alcoholic');
 
+let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+let currentRecipe;
+let backHandler;
+let meal;
 // <-------------------- FUNCTIONS TO DISPLAY LIST OF ITEMS FROM API REQUEST
 // function to generate list based on user selection 
 // h -> handler to determinate if user is looking for meal or drink. h == true -> meal, false -> drink
@@ -64,7 +68,9 @@ function fetchData(url, h) {
                     
                     SEARCH_DISPLAY.append(column);
                     column.append(link);
-                    link.append(img).append(pTag);          
+                    link.append(img).append(pTag);   
+                    backHandler = handler;
+                    meal = h;         
                 };
             });
         }; 
@@ -82,6 +88,7 @@ function fetchRecipeID(id, h) {
     fetch(url + API_LOOKUP_ID + id).then(function(response) {
         if(response.ok) {
             response.json().then(function(data) {
+                currentRecipe = data["meals"];
                 renderSelectedRecipe(data, h);
             });
         };
@@ -119,6 +126,13 @@ function renderIngredientsTable(recipe, h ) {
     let headIngredientEl = $('<th>').text('Ingredient');
     ingredientsTableBodyEl.append(headMeasureEl).append(headIngredientEl);
     
+    let btn = document.createElement('button');
+    btn.setAttribute('id', 'savebtn');
+    btn.innerHTML = 'save recipe';
+    let back = document.createElement('button');
+    back.innerHTML = 'back';
+    back.setAttribute('id', 'backbtn');
+
     SEARCH_DISPLAY.append(recipeColumnEl);
     recipeColumnEl.append(recipeTitleEl).append(ingredientsTableEl);
     ingredientsTableEl.append(ingredientsTableBodyEl);
@@ -132,14 +146,20 @@ function renderIngredientsTable(recipe, h ) {
                 let ingredientsLinkEl = 
                     $('<a id="' + recipe["strIngredient" + i] +'" value="' + h 
                     + '" onclick="fetchSearchByIngredient(event)">').text(recipe["strIngredient" + i]);
+                    let buttonRow = $('<tr>');
 
                 ingredientsTableItemEl.append(ingredientsLinkEl);
     
                 ingredientsTableBodyEl.append(ingredientsTableRowEl);
+                ingredientsTableBodyEl.append(buttonRow);
+                buttonRow.append(back);
+                buttonRow.append(btn);
                 ingredientsTableRowEl.append(ingredientsTableMeasureEl);
                 ingredientsTableRowEl.append(ingredientsTableItemEl);
         };
     };
+    document.getElementById('savebtn').addEventListener('click', save);
+    document.getElementById('backbtn').addEventListener('click', previous);
 };
 
 function fetchSearchByIngredient(e) { 
@@ -150,6 +170,14 @@ function fetchSearchByIngredient(e) {
     $('#recipe-description').remove();
     fetchData(url + API_FILTER_INGREDIENT + value, h);
 };
+
+function save (){
+    let data = JSON.parse(localStorage.getItem("savedRecipes"));
+    
+    savedRecipes.push(currentRecipe);
+    localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+    
+}
 
 SEARCH.on('click', function(event) {
     if(event.target.id === 'submit-btn') {
@@ -354,4 +382,59 @@ SELECT_COCKTAIL_ALCOHOLIC.change(function() {
     fetchData(API_COCKTAIL_URL + API_FILTER_AREA + value, false);
 });
 
+function previous () {
 
+    if (meal) {
+        let parent = document.getElementById('search-display');
+        while(parent.firstChild) {
+            parent.removeChild(parent.lastChild);
+        }
+        let disc = document.getElementsByClassName('rows');
+        while (disc.length > 0 ) {
+            disc[0].parentNode.removeChild(disc[0]);
+        }
+        while(parent.firstChild) {
+            parent.removeChild(parent.lastChild);
+        }
+        for(let i=0; i<backHandler.length; i++) {
+            let img_url = backHandler[i].strMealThumb;
+            let id = backHandler[i].idMeal;
+            let strType = backHandler[i].strMeal;
+            let column = $('<div class="column is-link border-radius is-one-fifth has-text-centered m-1">');
+            let link = $('<a id="' + id + '" value="' + meal + '" onclick="selectRecipe(event)">');
+            let img = $('<img class="shadow img border-radius" src="' + img_url + '" alt="' + strType +'">');
+            let pTag = $('<p>').text(strType);
+            let main = $('.main-content');
+            main.empty().append(SEARCH_DISPLAY);
+            
+            SEARCH_DISPLAY.append(column);
+            column.append(link);
+            link.append(img).append(pTag);        
+        };
+}
+if(!meal) {
+    let parent = document.getElementById('search-display');
+    while(parent.firstChild) {
+        parent.removeChild(parent.lastChild);
+    }
+    let disc = document.getElementsByClassName('rows');
+    while (disc.length > 0 ) {
+        disc[0].parentNode.removeChild(disc[0]);
+    }
+    for(let i=0; i<backHandler.length; i++) {
+        let img_url = backHandler[i].strDrinkThumb;
+        let id = backHandler[i].idDrink;
+        let strType = backHandler[i].strDrink;
+        let column = $('<div class="column is-link border-radius is-one-fifth has-text-centered m-1">');
+        let link = $('<a id="' + id + '" value="' + meal + '" onclick="selectRecipe(event)">');
+        let img = $('<img class="shadow img border-radius" src="' + img_url + '" alt="' + strType +'">');
+        let pTag = $('<p>').text(strType);
+        let main = $('.main-content');
+        main.empty().append(SEARCH_DISPLAY);
+        
+        SEARCH_DISPLAY.append(column);
+        column.append(link);
+        link.append(img).append(pTag); 
+    }
+}
+}
