@@ -128,14 +128,24 @@ function renderIngredientsTable(recipe, h ) {
     
     let btn = document.createElement('button');
     btn.setAttribute('id', 'savebtn');
-    btn.innerHTML = 'save recipe';
+    btn.setAttribute('class', 'button shadow m-2 is-success is-rounded');
+    btn.innerHTML = 'Save Recipe';
     let back = document.createElement('button');
-    back.innerHTML = 'back';
+    back.innerHTML = 'Back';
     back.setAttribute('id', 'backbtn');
+    back.setAttribute('class', 'button shadow m-2 is-link is-rounded');
+    
 
     SEARCH_DISPLAY.append(recipeColumnEl);
     recipeColumnEl.append(recipeTitleEl).append(ingredientsTableEl);
     ingredientsTableEl.append(ingredientsTableBodyEl);
+    
+    let buttonDiv = $('<div>')
+    recipeColumnEl.append(buttonDiv)
+    buttonDiv.append(back)
+    buttonDiv.append(btn)
+    document.getElementById('savebtn').addEventListener('click', save);
+    document.getElementById('backbtn').addEventListener('click', previous);
     
     let len = h ? 21 : 16;
     for(let i=1; i<len; i++) {
@@ -146,20 +156,15 @@ function renderIngredientsTable(recipe, h ) {
                 let ingredientsLinkEl = 
                     $('<a id="' + recipe["strIngredient" + i] +'" value="' + h 
                     + '" onclick="fetchSearchByIngredient(event)">').text(recipe["strIngredient" + i]);
-                    let buttonRow = $('<tr>');
+
 
                 ingredientsTableItemEl.append(ingredientsLinkEl);
-    
                 ingredientsTableBodyEl.append(ingredientsTableRowEl);
-                ingredientsTableBodyEl.append(buttonRow);
-                buttonRow.append(back);
-                buttonRow.append(btn);
                 ingredientsTableRowEl.append(ingredientsTableMeasureEl);
                 ingredientsTableRowEl.append(ingredientsTableItemEl);
         };
     };
-    document.getElementById('savebtn').addEventListener('click', save);
-    document.getElementById('backbtn').addEventListener('click', previous);
+   
 };
 
 function fetchSearchByIngredient(e) { 
@@ -264,9 +269,11 @@ function appendSelectEl(option) {
 
 $(function() {
     let path = getPathValue();
+    
 
     if(path === "search.html") {
         let selectedOption =  window.location.search; // can that be in jquery?
+        $('#search-h1').text('SEARCH ' + selectedOption.slice(1).toLocaleUpperCase() + ' BY')
         if(selectedOption === "?meal") {
             appendSelectEl(true);
             // $('#meal-area-div').hide();
@@ -282,6 +289,8 @@ $(function() {
         };
     }
 });
+
+
 
 
 function getPathValue() {
@@ -322,13 +331,13 @@ $(function() {
         let backBtn = document.createElement("div")
         backBtn.innerHTML = `<a href="./search.html?meal"><img class="positionbackbtn" src="./assets/images/left-arrow.png" /></a>`
         backNav.prepend(backBtn) 
-    }
-    else if(window.location.search == "?cocktail") {
+    } else if(window.location.search == "?cocktail") {
         let backNav = document.getElementById("navbar")
         let backBtn = document.createElement("div")
         backBtn.innerHTML = `<a href="./search.html?cocktail"><img class="positionbackbtn" src="./assets/images/left-arrow.png" /></a>`
-        backNav.prepend(backBtn);
+        backNav.prepend(backBtn) 
     }
+
 });
 
 $(function() {
