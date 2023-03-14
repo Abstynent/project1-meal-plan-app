@@ -31,7 +31,7 @@ const COCKTAIL_CATEGORIES = [
     "Beer", "Soft Drink", "Other"
 ];
 const BTNS = document.querySelectorAll('button');
-const SEARCH_DISPLAY = $('<div id="search-display" class="columns is-align-items-center is-centered is-multiline">'); 
+const SEARCH_DISPLAY = $('<div id="search-display" class="columns  is-align-items-center is-centered is-multiline">'); 
 const SEARCH = $('#search');
 const SELECT_MEAL_CATEGORY = $('#meal-category-select');
 const SELECT_MEAL_AREA = $('#meal-area-select');
