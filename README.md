@@ -3,6 +3,7 @@
   alt="Alt text"
   title="Optional title"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
+  
 # Meal and Cocktail
 This is a webpage where you can search for meals and cocktails recipes by name, ingredient, category, and area. You will be presented with a recipe and ingredients table, and you can save it to local storage so you will have access to your saved recipes.
 # Getting Started
@@ -21,8 +22,14 @@ This webpage was built using HTML, CSS, JavaScript, and the Bulma framework. The
 This webpage was created by Kristiyan Tefov, Lukasz Jurkiewicz and Jayssen De Castro. 
 
 ## Links
+Link to the webpage https://abstynent.github.io/project1-meal-plan-app/
+
+Link to the repo https://github.com/Abstynent/project1-meal-plan-app
 
 ## Mock-Up
 
-![alt text](./img/image.png)
+![alt text](./assets/images/screnshoots/Screenshot.png)
+![alt text](./assets/images/screnshoots/Screenshot1.png)
+![alt text](./assets/images/screnshoots/Screenshot2.png)
+![alt text](./assets/images/screnshoots/Screenshot3.png)
 
