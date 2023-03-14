@@ -300,26 +300,26 @@ $(function() {
         let backNav = document.getElementById("navbar")
         let backBtn = document.createElement("div")
         backBtn.innerHTML = `<a href="./search.html?cocktail"><img class="positionbackbtn" src="./assets/images/left-arrow.png" /></a>`
-        backNav.prepend(backBtn)
+        backNav.prepend(backBtn);
     }
 });
 
 $(function() {
-    if(window.location.search == "?meal" || "?cocktail") {
+    if(window.location.search) {
         let backNav = document.getElementById("navbar")
         let homeBtn = document.createElement("div")
         homeBtn.innerHTML = `<a href="./index.html"><img class="positionbackbtn" src="./assets/images/home.png" /></a>`
-        backNav.append(homeBtn)
+        backNav.append(homeBtn);
        
     }
 });
 
+let currentTime = dayjs();
 
 async function setTime() {
     let currentTime = dayjs();
     $("#currentDay").text(currentTime.format("MMM D YYYY"));
     $("#currentTime").text(currentTime.format("HH:mm:ss"));
-
   };
   setTime();
   setInterval(setTime, 1000);

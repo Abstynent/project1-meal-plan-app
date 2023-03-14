@@ -79,8 +79,8 @@ section {
 }
 
 .imagemain {
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
 }
 .navbar-image {
   width: 210px; 
@@ -111,6 +111,11 @@ section {
     width: 168px; 
     height: 51px
   }
+  .imagemain {
+    width: 220px;
+    height: 220px;
+  }
+
   
 }
 @media screen and (max-width: 790px) {
@@ -125,4 +130,10 @@ section {
     font-size: small;
     padding: 2px;
     margin: 1px;
+    
+}
+.imagemain {
+  width: 190px;
+  height: 190px;
+}
 }
