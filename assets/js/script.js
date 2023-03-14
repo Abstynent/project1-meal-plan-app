@@ -74,6 +74,8 @@ function fetchData(url, h) {
                     backHandler = handler;
                     meal = h;         
                 };
+            }).catch(function() {
+                displayErroMsg(true);
             });
         }; 
     });
@@ -166,7 +168,6 @@ function renderIngredientsTable(recipe, h ) {
                 let ingredientsLinkEl = 
                     $('<a id="' + recipe["strIngredient" + i] +'" value="' + h 
                     + '" onclick="fetchSearchByIngredient(event)">').text(recipe["strIngredient" + i]);
-
 
                 ingredientsTableItemEl.append(ingredientsLinkEl);
                 ingredientsTableBodyEl.append(ingredientsTableRowEl);
