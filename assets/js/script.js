@@ -51,7 +51,7 @@ function fetchData(url, h) {
             response.json().then(function (data) {
                 let handler = h ? data.meals : data.drinks;
                 if(handler === null) { 
-                    displayErroMsg();
+                    displayErroMsg(true);
                     return; 
                 };
 
@@ -182,6 +182,10 @@ function save (){
 SEARCH.on('click', function(event) {
     if(event.target.id === 'submit-btn') {
         let value = $('input[name="input-box"').val();
+        if(value.length < 1) {
+            displayErroMsg(false);
+            return;
+        }
         switch(event.target.value) {
             case 'mealSbmName': fetchData(API_MEAL_URL + API_SEARCH_NAME + value, true); break;
             case 'mealSbmIngredient': fetchData(API_MEAL_URL + API_FILTER_INGREDIENT + value, true); break;
@@ -289,10 +293,12 @@ function getPathValue() {
     return path.slice(path.lastIndexOf("/")+1);
 };
 // Function to create dom element and display it on the page in case of fetch error
-function displayErroMsg() {
+function displayErroMsg(bln) {
     let value = $('input[name="input-box"').val();
-    let msg = $('<h1>').text('"' + value + '" not found.');
-    msg.addClass('has-text-danger title');
+    $('.error-msg').remove();
+
+    let msg = bln ? $('<h1>').text('"' + value + '" not found.') : $('<h1>').text('Input field cannot be empty.');
+    msg.addClass('has-text-danger title error-msg');
     msg.insertBefore('#search-box-input');
 
 };
@@ -354,14 +360,6 @@ async function setTime() {
 function getPathValue() {
     let path = $(location).attr('pathname');
     return path.slice(path.lastIndexOf("/")+1);
-};
-// Function to create dom element and display it on the page in case of fetch error
-function displayErroMsg() {
-    let value = $('input[name="input-box"').val();
-    let msg = $('<h1>').text('"' + value + '" not found.');
-    msg.addClass('has-text-danger title');
-    msg.insertBefore('#search-box-input');
-
 };
 
 // SELECT event listeners
