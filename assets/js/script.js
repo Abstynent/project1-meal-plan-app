@@ -39,7 +39,9 @@ const SELECT_COCKTAIL_CATEGORY = $('#cocktail-category-select');
 const SELECT_COCKTAIL_ALCOHOLIC = $('#cocktail-alcoholic');
 
 let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
+let savedDrinks = JSON.parse(localStorage.getItem('savedDrinks')) || [];
 let currentRecipe;
+let currentDrink;
 let backHandler;
 let meal;
 // <-------------------- FUNCTIONS TO DISPLAY LIST OF ITEMS FROM API REQUEST
@@ -88,7 +90,15 @@ function fetchRecipeID(id, h) {
     fetch(url + API_LOOKUP_ID + id).then(function(response) {
         if(response.ok) {
             response.json().then(function(data) {
-                currentRecipe = data["meals"];
+
+                if(window.location.search == "?meal") {
+                currentRecipe = data["meals"][0]; //get selected meal data
+                }
+
+                if(window.location.search == "?cocktail") {
+                currentDrink = data["drinks"][0]; //get selected drinks data
+                }
+
                 renderSelectedRecipe(data, h);
             });
         };
@@ -171,12 +181,20 @@ function fetchSearchByIngredient(e) {
     fetchData(url + API_FILTER_INGREDIENT + value, h);
 };
 
+//save function to save recipes and store recipe into localstorage
 function save (){
-    let data = JSON.parse(localStorage.getItem("savedRecipes"));
-    
-    savedRecipes.push(currentRecipe);
-    localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
-    
+    if(window.location.search == "?meal") {
+        if (!savedRecipes.includes(currentRecipe)){
+            savedRecipes.push(currentRecipe);
+            localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+        }
+    }
+    if(window.location.search == "?cocktail") {
+        if (!savedDrinks.includes(currentDrink)) {
+            savedDrinks.push(currentDrink);
+            localStorage.setItem('savedDrinks', JSON.stringify(savedDrinks));
+        }
+    }
 }
 
 SEARCH.on('click', function(event) {
@@ -197,7 +215,7 @@ SEARCH.on('click', function(event) {
 BTNS.forEach(btn => {
     btn.addEventListener('click', makeButton);
 })
-
+//create search option buttons for search page
 function makeButton(e) {
     let parent = document.getElementById('search-by-div');
     let name = e.target.id;
@@ -228,18 +246,6 @@ function makeButton(e) {
     newDiv.appendChild(button);
     parent.appendChild(newDiv);
 
-    $('[id^="sbm"]').click(function() {
-
-        // let name = document.querySelector('label').innerText;
-        let type = e.target.id;
-        let searchEl = $('[id^="food"]').val();
-        let searchType = {
-            type: type,
-            search: searchEl
-        }
-
-        localStorage.setItem("searchBy", JSON.stringify(searchType));
-    })
 }
 
 // append elements in select tags on the search page, based on user selection meal/drink
@@ -382,8 +388,9 @@ SELECT_COCKTAIL_ALCOHOLIC.change(function() {
     fetchData(API_COCKTAIL_URL + API_FILTER_AREA + value, false);
 });
 
-function previous () {
 
+//previous button function that allows the user to go back to the list of searched elements
+function previous () {
     if (meal) {
         let parent = document.getElementById('search-display');
         while(parent.firstChild) {
