@@ -419,3 +419,19 @@ if(!meal) {
     }
 }
 }
+
+
+$(function() {
+    console.log(savedRecipes);
+    let contentEl = $('#saveprofiles');
+    for(let i=0; i<savedRecipes.length; i++) {
+        let column = $('<div class="column is-link border-radius is-one-fifth has-text-centered m-1">');
+        let link = $('<a id="' + savedRecipes[i].id + '" value="' + savedRecipes[i].type + '" onclick="selectRecipe(event)">');
+        let img = $('<img class="shadow img border-radius" src="' + savedRecipes[i].thumbnail + '" alt="Saved recipe picture.">');
+        let pTag = $('<p>').text(savedRecipes[i].strType);
+
+        column.append(link);
+        link.append(img).append(pTag);
+        contentEl.append(column);
+    }
+})
