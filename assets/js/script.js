@@ -9,6 +9,7 @@ const API_SEARCH_NAME = 'search.php?s=' // dish name at the end
 const API_FILTER_INGREDIENT = 'filter.php?i=' // add ingredient
 const API_FILTER_CATEGORY = 'filter.php?c=' // add category
 const API_FILTER_AREA = 'filter.php?a=' // add country
+
 // Arrays for Categories and Area
 const MEAL_CATEGORIES = [
     "Beef", "Breakfast", "Chicken", "Dessert",
@@ -30,6 +31,8 @@ const COCKTAIL_CATEGORIES = [
     "Coffee / Tea", "Homemade Liqueur", "Punch / Party Drink",
     "Beer", "Soft Drink", "Other / Unknown"
 ];
+
+// const to store DOM elements
 const BTNS = document.querySelectorAll('button');
 const SEARCH_DISPLAY = $('<div id="search-display" class="columns  is-align-items-center is-centered is-multiline">'); 
 const SEARCH = $('#search');
@@ -38,11 +41,58 @@ const SELECT_MEAL_AREA = $('#meal-area-select');
 const SELECT_COCKTAIL_CATEGORY = $('#cocktail-category-select');
 const SELECT_COCKTAIL_ALCOHOLIC = $('#cocktail-alcoholic');
 
+// fetch saved recipes from localStorage
 let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
-let currentRecipe;
-let currentDrink;
-let backHandler;
-let meal;
+
+// global variables
+var currentRecipe;
+var backHandler;
+var meal;
+var currentTime = dayjs();
+
+
+// <-------------------- FUNCTIONS TO RUN AT START
+$(function() {
+    renderSavedRecipes();
+
+    // add buttons to go back to search option after searching for recipe
+    let h = window.location.search === "?meal" ? 0 : window.location.search === "?cocktail" ? 1 : -1; // 0 = meal, 1 = cocktail, -1 = anything else
+    let backNav = document.getElementById("navbar");
+    let backBtn = document.createElement("div");
+
+    if(h === 0) { 
+        backBtn.innerHTML = `<a href="./search.html?meal"><img class="positionbackbtn" src="./assets/images/search.png" /></a>`; 
+        backNav.prepend(backBtn); 
+    } else if(h === 1) { 
+        backBtn.innerHTML = `<a href="./search.html?cocktail"><img class="positionbackbtn" src="./assets/images/search.png" /></a>`;
+        backNav.prepend(backBtn);
+    };
+
+    // add home button to the search.html
+    if(window.location.search) {
+        let backNav = document.getElementById("navbar")
+        let homeBtn = document.createElement("div")
+        homeBtn.innerHTML = `<a href="./index.html"><img class="positionbackbtn" src="./assets/images/home.png" /></a>`
+        backNav.append(homeBtn);
+    }
+    
+    if(window.location.search) {
+        let selectedOption =  window.location.search;
+        $('#search-h1').text('SEARCH ' + selectedOption.slice(1).toLocaleUpperCase() + ' BY')
+
+        if(selectedOption === "?meal") {
+            appendSelectEl(true);
+            $('#cocktail-category-div').hide();
+            $('#cocktail-alcoholic-div').hide();
+        } else if(selectedOption === "?cocktail") {
+            $('#meal-area-div').hide();
+            $('#meal-category-div').hide();
+            appendSelectEl(false);
+        } else { // go back to index.html if selection was not made
+            window.location.href = "index.html";
+        };
+    }
+});
 // <-------------------- FUNCTIONS TO DISPLAY LIST OF ITEMS FROM API REQUEST
 // function to generate list based on user selection 
 // h -> handler to determinate if user is looking for meal or drink. h == true -> meal, false -> drink
@@ -79,20 +129,19 @@ function fetchData(url, h) {
     });
 };
 
-// function to display recipe based on user selection
+// function to display recipe based on user click in list of all displayed recipes
 function selectRecipe(event) {
     let h = event.target.parentNode.getAttribute("value") === 'true' ? true : false;
     fetchRecipeID(event.target.parentNode.id, h);
 };
 
+// function to handle request to display recipe by ID
 function fetchRecipeID(id, h) { 
     let url = h ? API_MEAL_URL : API_COCKTAIL_URL;
     fetch(url + API_LOOKUP_ID + id).then(function(response) {
         if(response.ok) {
             response.json().then(function(data) {
-
-                currentRecipe = window.location.search === "?meal" ? data["meals"][0] : data["drinks"][0];
-
+                currentRecipe = h ? data["meals"][0] : data["drinks"][0];
                 renderSelectedRecipe(data, h);
             });
         };
@@ -101,11 +150,12 @@ function fetchRecipeID(id, h) {
 
 // create a container with recipe content
 function renderSelectedRecipe(recipe, h ) { 
+    // establish which API link needs to be used
     let handler = h ? recipe.meals : recipe.drinks;
     let imgUrl = h ? handler[0].strMealThumb : handler[0].strDrinkThumb;
     let strType = h ? handler[0].strMeal : handler[0].strDrink;
-    
 
+    // create DOM elements and append them
     let imgColumnEl = $('<div class="column m-4">')
     let imgFrameEl = $('<figure class="image">');
     let imgEl = $('<img class="shadow image imgrecipe border-radius" src="' + imgUrl +'" alt="' + strType +'">');
@@ -122,6 +172,7 @@ function renderSelectedRecipe(recipe, h ) {
 function renderIngredientsTable(recipe, h ) {
     let strType = h ? recipe.strMeal : recipe.strDrink;
 
+    // declare DOM elements with styling
     let recipeColumnEl = $('<div class="column m-4 is-flex is-flex-direction-column ">');
     let recipeTitleEl = $('<h2 class="title has-text-centered is-3">').text(strType);
     let ingredientsTableEl = $('<table class="table is-bordered is-striped is-narrow is-hoverable">');
@@ -130,6 +181,7 @@ function renderIngredientsTable(recipe, h ) {
     let headIngredientEl = $('<th>').text('Ingredient');
     ingredientsTableBodyEl.append(headMeasureEl).append(headIngredientEl);
     
+    // add buttons 'back' and 'save' button 
     let btn = document.createElement('button');
     btn.setAttribute('id', 'savebtn');
     btn.setAttribute('class', 'button shadow m-2 is-success is-rounded');
@@ -151,6 +203,7 @@ function renderIngredientsTable(recipe, h ) {
     document.getElementById('savebtn').addEventListener('click', save);
     document.getElementById('backbtn').addEventListener('click', previous);
     
+    // display all existing ingredients from API response
     let len = h ? 21 : 16;
     for(let i=1; i<len; i++) {
         if(recipe["strIngredient" + i] !== "" && recipe["strIngredient" + i] !== null) {
@@ -170,6 +223,7 @@ function renderIngredientsTable(recipe, h ) {
    
 };
 
+// function allows to search by using ingredient, attached to ingredient table in recipe page
 function fetchSearchByIngredient(e) { 
     let h = e.target.getAttribute('value') === "true" ? true : false;
     let value = e.target.text;
@@ -181,11 +235,11 @@ function fetchSearchByIngredient(e) {
 
 //save function to save recipes and store recipe into localstorage
 function save (){
-    // currentRecipe = window.location.search === "?meal" ? data["meals"][0] : data["drinks"][0];
-    let id = window.location.search === "?meal" ? currentRecipe.idMeal : currentRecipe.idDrink;
-    let strType = window.location.search === "?meal" ? currentRecipe.strMeal : currentRecipe.strDrink;
-    let img = window.location.search === "?meal" ? currentRecipe.strMealThumb : currentRecipe.strDrinkThumb;
-    let type = window.location.search === "?meal" ? true : false;
+    let handler = window.location.search === "?meal" ? true : false;
+    let id = handler ? currentRecipe.idMeal : currentRecipe.idDrink;
+    let strType = handler ? currentRecipe.strMeal : currentRecipe.strDrink;
+    let img = handler ? currentRecipe.strMealThumb : currentRecipe.strDrinkThumb;
+    let type = handler ? true : false;
 
     let recipe = {
         id: id,
@@ -200,29 +254,29 @@ function save (){
             
     }
 }
-
+// click event on submit button
 SEARCH.on('click', function(event) {
     if(event.target.id === 'submit-btn') {
         let value = $('input[name="input-box"').val();
+        // check if there is any input
         if(value.length < 1) {
             displayErroMsg(false);
             return;
         }
+
         switch(event.target.value) {
             case 'mealSbmName': fetchData(API_MEAL_URL + API_SEARCH_NAME + value, true); break;
             case 'mealSbmIngredient': fetchData(API_MEAL_URL + API_FILTER_INGREDIENT + value, true); break;
-            // case 'mealSbmCategory':  fetchData(API_MEAL_URL + API_FILTER_CATEGORY + value, true); break;
-            // case 'mealSbmArea': fetchData(API_MEAL_URL + API_FILTER_AREA + value, true); break;
-
             case 'cocktailSbmName': fetchData(API_COCKTAIL_URL + API_SEARCH_NAME + value, false); break;
             case 'cocktailSbmIngredient': fetchData(API_COCKTAIL_URL + API_FILTER_INGREDIENT + value, false); break;
-            // case 'cocktailSbmCategory': fetchData(API_COCKTAIL_URL + API_FILTER_CATEGORY + false); break;
         };
     };
 });
+// add event listeners to each button on search.html
 BTNS.forEach(btn => {
     btn.addEventListener('click', makeButton);
 })
+
 //create search option buttons for search page
 function makeButton(e) {
     let parent = document.getElementById('search-by-div');
@@ -274,12 +328,8 @@ function appendSelectEl(option) {
             $('#cocktail-category-select').append(element)
         };
     }
-}
-
-function getPathValue() {
-    let path = $(location).attr('pathname');
-    return path.slice(path.lastIndexOf("/")+1);
 };
+
 // Function to create dom element and display it on the page in case of fetch error
 function displayErroMsg(bln) {
     let value = $('input[name="input-box"').val();
@@ -288,7 +338,6 @@ function displayErroMsg(bln) {
     let msg = bln ? $('<h1>').text('"' + value + '" not found.') : $('<h1>').text('Input field cannot be empty.');
     msg.addClass('has-text-white  border-radius  has-background-danger has-text-centered m-2 p-3 title');
     msg.insertBefore('#search-box-input');
-
 };
 
 // SELECT event listeners
@@ -308,54 +357,6 @@ SELECT_COCKTAIL_ALCOHOLIC.change(function() {
     let value = SELECT_COCKTAIL_ALCOHOLIC.val();
     fetchData(API_COCKTAIL_URL + API_FILTER_AREA + value, false);
 });
-
-
-$(function() {
-    renderSavedRecipes();
-
-    if(window.location.search == "?meal") {
-        let backNav = document.getElementById("navbar")
-        let backBtn = document.createElement("div")
-        backBtn.innerHTML = `<a href="./search.html?meal"><img class="positionbackbtn" src="./assets/images/search.png" /></a>`
-        backNav.prepend(backBtn) 
-    } else if(window.location.search == "?cocktail") {
-        let backNav = document.getElementById("navbar")
-        let backBtn = document.createElement("div")
-        backBtn.innerHTML = `<a href="./search.html?cocktail"><img class="positionbackbtn" src="./assets/images/search.png" /></a>`
-        backNav.prepend(backBtn) 
-    }
-
-    if(window.location.search) {
-        let backNav = document.getElementById("navbar")
-        let homeBtn = document.createElement("div")
-        homeBtn.innerHTML = `<a href="./index.html"><img class="positionbackbtn" src="./assets/images/home.png" /></a>`
-        backNav.append(homeBtn);
-       
-    }
-
-    let path = getPathValue();
-    
-
-    if(path === "search.html") {
-        let selectedOption =  window.location.search; // can that be in jquery?
-        $('#search-h1').text('SEARCH ' + selectedOption.slice(1).toLocaleUpperCase() + ' BY')
-        if(selectedOption === "?meal") {
-            appendSelectEl(true);
-            // $('#meal-area-div').hide();
-            // $('#meal-category-div').hide();
-            $('#cocktail-category-div').hide();
-            $('#cocktail-alcoholic-div').hide();
-        } else if(selectedOption === "?cocktail") {
-            $('#meal-area-div').hide();
-            $('#meal-category-div').hide();
-            appendSelectEl(false);
-        } else { // go back to index.html if selection was not made
-            window.location.href = "index.html";
-        };
-    }
-});
-
-let currentTime = dayjs();
 
 async function setTime() {
     let currentTime = dayjs();
@@ -393,36 +394,37 @@ function previous () {
             SEARCH_DISPLAY.append(column);
             column.append(link);
             link.append(img).append(pTag);        
-        };
-}
-if(!meal) {
-    let parent = document.getElementById('search-display');
-    while(parent.firstChild) {
-        parent.removeChild(parent.lastChild);
+        };  
     }
-    let disc = document.getElementsByClassName('rows');
-    while (disc.length > 0 ) {
-        disc[0].parentNode.removeChild(disc[0]);
+    
+    if(!meal) {
+        let parent = document.getElementById('search-display');
+        while(parent.firstChild) {
+            parent.removeChild(parent.lastChild);
+        }
+        let disc = document.getElementsByClassName('rows');
+        while (disc.length > 0 ) {
+            disc[0].parentNode.removeChild(disc[0]);
+        }
+        for(let i=0; i<backHandler.length; i++) {
+            let img_url = backHandler[i].strDrinkThumb;
+            let id = backHandler[i].idDrink;
+            let strType = backHandler[i].strDrink;
+            let column = $('<div class="column is-link border-radius is-one-fifth has-text-centered m-1">');
+            let link = $('<a id="' + id + '" value="' + meal + '" onclick="selectRecipe(event)">');
+            let img = $('<img class="shadow img border-radius" src="' + img_url + '" alt="' + strType +'">');
+            let pTag = $('<p>').text(strType);
+            let main = $('.main-content');
+            main.empty().append(SEARCH_DISPLAY);
+            
+            SEARCH_DISPLAY.append(column);
+            column.append(link);
+            link.append(img).append(pTag); 
+        }
     }
-    for(let i=0; i<backHandler.length; i++) {
-        let img_url = backHandler[i].strDrinkThumb;
-        let id = backHandler[i].idDrink;
-        let strType = backHandler[i].strDrink;
-        let column = $('<div class="column is-link border-radius is-one-fifth has-text-centered m-1">');
-        let link = $('<a id="' + id + '" value="' + meal + '" onclick="selectRecipe(event)">');
-        let img = $('<img class="shadow img border-radius" src="' + img_url + '" alt="' + strType +'">');
-        let pTag = $('<p>').text(strType);
-        let main = $('.main-content');
-        main.empty().append(SEARCH_DISPLAY);
-        
-        SEARCH_DISPLAY.append(column);
-        column.append(link);
-        link.append(img).append(pTag); 
-    }
-}
 }
 
-
+// display saved recipes on the homepage
 function renderSavedRecipes() {
     let contentEl = $('#saveprofiles');
     for(let i=0; i<savedRecipes.length; i++) {
