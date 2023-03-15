@@ -39,7 +39,6 @@ const SELECT_COCKTAIL_CATEGORY = $('#cocktail-category-select');
 const SELECT_COCKTAIL_ALCOHOLIC = $('#cocktail-alcoholic');
 
 let savedRecipes = JSON.parse(localStorage.getItem('savedRecipes')) || [];
-let savedDrinks = JSON.parse(localStorage.getItem('savedDrinks')) || [];
 let currentRecipe;
 let currentDrink;
 let backHandler;
@@ -92,13 +91,7 @@ function fetchRecipeID(id, h) {
         if(response.ok) {
             response.json().then(function(data) {
 
-                if(window.location.search == "?meal") {
-                currentRecipe = data["meals"][0].idMeal; //get selected meal data
-                }
-
-                if(window.location.search == "?cocktail") {
-                currentDrink = data["drinks"][0].idDrink; //get selected drinks data
-                }
+                currentRecipe = window.location.search === "?meal" ? data["meals"][0] : data["drinks"][0];
 
                 renderSelectedRecipe(data, h);
             });
@@ -188,12 +181,24 @@ function fetchSearchByIngredient(e) {
 
 //save function to save recipes and store recipe into localstorage
 function save (){
+    // currentRecipe = window.location.search === "?meal" ? data["meals"][0] : data["drinks"][0];
+    let id = window.location.search === "?meal" ? currentRecipe.idMeal : currentRecipe.idDrink;
+    let strType = window.location.search === "?meal" ? currentRecipe.strMeal : currentRecipe.strDrink;
+    let img = window.location.search === "?meal" ? currentRecipe.strMealThumb : currentRecipe.strDrinkThumb;
+    let type = window.location.search === "?meal" ? true : false;
 
-            savedRecipes.push(currentRecipe);
-
-            savedRecipes.push(currentDrink);
-            localStorage.setItem('savedRecipes', JSON.stringify(savedDrinks));
-    
+    let recipe = {
+        id: id,
+        strType: strType,
+        thumbnail: img,
+        type: type
+    }
+    let check = savedRecipes.some( saved => saved['id'] === recipe.id )
+    if(!check) {
+        savedRecipes.push(recipe);
+        localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
+            
+    }
 }
 
 SEARCH.on('click', function(event) {

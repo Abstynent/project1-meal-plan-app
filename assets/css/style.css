@@ -54,7 +54,7 @@ input {
 
 }
 .height {
-  height: 1vh;
+  height: 9vh;
 }
 
 .imgrecipe { 
@@ -70,7 +70,8 @@ input {
 }
 
 .z-index {
-  z-index: -1;
+  z-index: 1;
+  background-color: azure;
 }
 
 section {
