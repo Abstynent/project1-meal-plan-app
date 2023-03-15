@@ -336,7 +336,7 @@ function displayErroMsg(bln) {
     $('.error-msg').remove();
 
     let msg = bln ? $('<h1>').text('"' + value + '" not found.') : $('<h1>').text('Input field cannot be empty.');
-    msg.addClass('has-text-white  border-radius  has-background-danger has-text-centered m-2 p-3 title');
+    msg.addClass('has-text-white  border-radius  has-background-danger has-text-centered m-1 p-1 has-text-weight-bold');
     msg.insertBefore('#search-box-input');
 };
 

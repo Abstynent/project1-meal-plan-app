@@ -6,7 +6,7 @@ a:focus {
     color: black;
 }
 section {
-  margin-top: 11vh;
+  margin-top: 8vh;
   margin-bottom: 12vh;
 }
 input {
@@ -43,7 +43,6 @@ input {
   align-items: center
   
 }
-
 .search {
   display: flex;
   flex-direction: column;
@@ -61,19 +60,16 @@ input {
 .height {
   height: 9vh;
 }
-
 .imgrecipe { 
     max-width: 80vh;  
     max-height: 80vh;    
 }
-
 .positionbackbtn {
 
   width: 35px;
   height: 35px;
 
 }
-
 .z-index {
   z-index: 1;
   background-color: azure;
@@ -105,7 +101,6 @@ input {
   border: solid 1px black;
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
 }
-
 @media screen and (max-width: 1500px) {
   .navbar-image {
     width: 168px; 
