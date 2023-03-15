@@ -383,7 +383,7 @@ function previous () {
             let img_url = backHandler[i].strMealThumb;
             let id = backHandler[i].idMeal;
             let strType = backHandler[i].strMeal;
-            let column = $('<div class="column is-link border-radius  is-one-fifth has-text-centered m-1">');
+            let column = $('<div class="column is-link border-radius is-flex-direction-column is-align-self-flex-start is-one-fifth has-text-centered m-1">');
             let link = $('<a id="' + id + '" value="' + meal + '" onclick="selectRecipe(event)">');
             let img = $('<img class="shadow img border-radius" src="' + img_url + '" alt="' + strType +'">');
             let pTag = $('<p>').text(strType);
@@ -408,7 +408,7 @@ if(!meal) {
         let img_url = backHandler[i].strDrinkThumb;
         let id = backHandler[i].idDrink;
         let strType = backHandler[i].strDrink;
-        let column = $('<div class="column is-link border-radius is-one-fifth has-text-centered m-1">');
+        let column = $('<div class=" border-radius m-1">');
         let link = $('<a id="' + id + '" value="' + meal + '" onclick="selectRecipe(event)">');
         let img = $('<img class="shadow img border-radius" src="' + img_url + '" alt="' + strType +'">');
         let pTag = $('<p>').text(strType);
@@ -426,7 +426,7 @@ if(!meal) {
 function renderSavedRecipes() {
     let contentEl = $('#saveprofiles');
     for(let i=0; i<savedRecipes.length; i++) {
-        let column = $('<div class="column is-link border-radius is-one-fifth has-text-centered m-1">');
+        let column = $('<div class="column is-link border-radius is-flex-direction-column is-align-self-flex-start is-one-fifth has-text-centered m-1">');
         let link = $('<a id="' + savedRecipes[i].id + '" value="' + savedRecipes[i].type + '" onclick="selectRecipe(event)">');
         let img = $('<img class="shadow img border-radius" src="' + savedRecipes[i].thumbnail + '" alt="Saved recipe picture.">');
         let pTag = $('<p>').text(savedRecipes[i].strType);
