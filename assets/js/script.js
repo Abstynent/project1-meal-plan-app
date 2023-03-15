@@ -34,7 +34,7 @@ const COCKTAIL_CATEGORIES = [
 
 // const to store DOM elements
 const BTNS = document.querySelectorAll('button');
-const SEARCH_DISPLAY = $('<div id="search-display" class="columns  is-align-items-center is-centered is-multiline">'); 
+const SEARCH_DISPLAY = $('<div id="search-display" class="columns mt-3 is-align-items-center is-centered is-multiline">'); 
 const SEARCH = $('#search');
 const SELECT_MEAL_CATEGORY = $('#meal-category-select');
 const SELECT_MEAL_AREA = $('#meal-area-select');
@@ -158,7 +158,7 @@ function renderSelectedRecipe(recipe, h ) {
     // create DOM elements and append them
     let imgColumnEl = $('<div class="column m-4">')
     let imgFrameEl = $('<figure class="image">');
-    let imgEl = $('<img class="shadow image imgrecipe border-radius" src="' + imgUrl +'" alt="' + strType +'">');
+    let imgEl = $('<img class="shadow image imgrecipe mt-3 border-radius" src="' + imgUrl +'" alt="' + strType +'">');
     let instructionsEl = $('<div id="recipe-description" class="rows m-4">').text(handler[0].strInstructions);
     imgColumnEl.append(imgFrameEl);
     imgFrameEl.append(imgEl);
@@ -413,7 +413,7 @@ function previous () {
             let strType = backHandler[i].strDrink;
             let column = $('<div class="column is-link border-radius is-flex-direction-column is-align-self-flex-start is-one-fifth has-text-centered m-1">');
             let link = $('<a id="' + id + '" value="' + meal + '" onclick="selectRecipe(event)">');
-            let img = $('<img class="shadow img border-radius" src="' + img_url + '" alt="' + strType +'">');
+            let img = $('<img class="shadow img mt-3 border-radius" src="' + img_url + '" alt="' + strType +'">');
             let pTag = $('<p>').text(strType);
             let main = $('.main-content');
             main.empty().append(SEARCH_DISPLAY);
@@ -431,7 +431,7 @@ function renderSavedRecipes() {
     for(let i=0; i<savedRecipes.length; i++) {
         let column = $('<div class="column is-link border-radius is-flex-direction-column is-align-self-flex-start is-one-fifth has-text-centered m-1">');
         let link = $('<a id="' + savedRecipes[i].id + '" value="' + savedRecipes[i].type + '" onclick="selectRecipe(event)">');
-        let img = $('<img class="shadow img border-radius" src="' + savedRecipes[i].thumbnail + '" alt="Saved recipe picture.">');
+        let img = $('<img class="shadow img mt-3 border-radius" src="' + savedRecipes[i].thumbnail + '" alt="Saved recipe picture.">');
         let pTag = $('<p>').text(savedRecipes[i].strType);
 
         column.append(link);
