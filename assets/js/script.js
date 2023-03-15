@@ -28,7 +28,7 @@ const MEAL_AREAS = [
 const COCKTAIL_CATEGORIES = [
     "Cocktail", "Shake", "Cocoa", "Shot",
     "Coffee / Tea", "Homemade Liqueur", "Punch / Party Drink",
-    "Beer", "Soft Drink", "Other"
+    "Beer", "Soft Drink", "Other / Unknown"
 ];
 const BTNS = document.querySelectorAll('button');
 const SEARCH_DISPLAY = $('<div id="search-display" class="columns  is-align-items-center is-centered is-multiline">'); 
@@ -55,7 +55,6 @@ function fetchData(url, h) {
                     displayErroMsg(true);
                     return; 
                 };
-
                 for(let i=0; i<handler.length; i++) {
                     let img_url = h ? handler[i].strMealThumb : handler[i].strDrinkThumb;
                     let id = h ? handler[i].idMeal : handler[i].idDrink;
@@ -182,8 +181,6 @@ function fetchSearchByIngredient(e) {
 
 //save function to save recipes and store recipe into localstorage
 function save (){
-
-    
     // currentRecipe = window.location.search === "?meal" ? data["meals"][0] : data["drinks"][0];
     let id = window.location.search === "?meal" ? currentRecipe.idMeal : currentRecipe.idDrink;
     let strType = window.location.search === "?meal" ? currentRecipe.strMeal : currentRecipe.strDrink;
@@ -202,8 +199,6 @@ function save (){
         localStorage.setItem('savedRecipes', JSON.stringify(savedRecipes));
             
     }
-    console.log(currentRecipe);
-    
 }
 
 SEARCH.on('click', function(event) {
@@ -281,32 +276,6 @@ function appendSelectEl(option) {
     }
 }
 
-$(function() {
-    let path = getPathValue();
-    
-
-    if(path === "search.html") {
-        let selectedOption =  window.location.search; // can that be in jquery?
-        $('#search-h1').text('SEARCH ' + selectedOption.slice(1).toLocaleUpperCase() + ' BY')
-        if(selectedOption === "?meal") {
-            appendSelectEl(true);
-            // $('#meal-area-div').hide();
-            // $('#meal-category-div').hide();
-            $('#cocktail-category-div').hide();
-            $('#cocktail-alcoholic-div').hide();
-        } else if(selectedOption === "?cocktail") {
-            $('#meal-area-div').hide();
-            $('#meal-category-div').hide();
-            appendSelectEl(false);
-        } else { // go back to index.html if selection was not made
-            window.location.href = "index.html";
-        };
-    }
-});
-
-
-
-
 function getPathValue() {
     let path = $(location).attr('pathname');
     return path.slice(path.lastIndexOf("/")+1);
@@ -354,15 +323,33 @@ $(function() {
         backNav.prepend(backBtn) 
     }
 
-});
-
-$(function() {
     if(window.location.search) {
         let backNav = document.getElementById("navbar")
         let homeBtn = document.createElement("div")
         homeBtn.innerHTML = `<a href="./index.html"><img class="positionbackbtn" src="./assets/images/home.png" /></a>`
         backNav.append(homeBtn);
        
+    }
+
+    let path = getPathValue();
+    
+
+    if(path === "search.html") {
+        let selectedOption =  window.location.search; // can that be in jquery?
+        $('#search-h1').text('SEARCH ' + selectedOption.slice(1).toLocaleUpperCase() + ' BY')
+        if(selectedOption === "?meal") {
+            appendSelectEl(true);
+            // $('#meal-area-div').hide();
+            // $('#meal-category-div').hide();
+            $('#cocktail-category-div').hide();
+            $('#cocktail-alcoholic-div').hide();
+        } else if(selectedOption === "?cocktail") {
+            $('#meal-area-div').hide();
+            $('#meal-category-div').hide();
+            appendSelectEl(false);
+        } else { // go back to index.html if selection was not made
+            window.location.href = "index.html";
+        };
     }
 });
 
@@ -375,30 +362,6 @@ async function setTime() {
   };
   setTime();
   setInterval(setTime, 1000);
-
-function getPathValue() {
-    let path = $(location).attr('pathname');
-    return path.slice(path.lastIndexOf("/")+1);
-};
-
-// SELECT event listeners
-SELECT_MEAL_CATEGORY.change(function() {
-    let value = SELECT_MEAL_CATEGORY.val();
-    fetchData(API_MEAL_URL + API_FILTER_CATEGORY + value, true);
-});
-SELECT_MEAL_AREA.change(function() {
-    let value = SELECT_MEAL_AREA.val();
-    fetchData(API_MEAL_URL + API_FILTER_AREA + value, true);
-});
-SELECT_COCKTAIL_CATEGORY.change(function() {
-    let value = SELECT_COCKTAIL_CATEGORY.val();
-    fetchData(API_COCKTAIL_URL + API_FILTER_CATEGORY + value, false);
-});
-SELECT_COCKTAIL_ALCOHOLIC.change(function() {
-    let value = SELECT_COCKTAIL_ALCOHOLIC.val();
-    fetchData(API_COCKTAIL_URL + API_FILTER_AREA + value, false);
-});
-
 
 //previous button function that allows the user to go back to the list of searched elements
 function previous () {
