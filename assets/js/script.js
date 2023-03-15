@@ -311,6 +311,8 @@ SELECT_COCKTAIL_ALCOHOLIC.change(function() {
 
 
 $(function() {
+    renderSavedRecipes();
+
     if(window.location.search == "?meal") {
         let backNav = document.getElementById("navbar")
         let backBtn = document.createElement("div")
@@ -421,8 +423,7 @@ if(!meal) {
 }
 
 
-$(function() {
-    console.log(savedRecipes);
+function renderSavedRecipes() {
     let contentEl = $('#saveprofiles');
     for(let i=0; i<savedRecipes.length; i++) {
         let column = $('<div class="column is-link border-radius is-one-fifth has-text-centered m-1">');
@@ -434,4 +435,4 @@ $(function() {
         link.append(img).append(pTag);
         contentEl.append(column);
     }
-})
+};
