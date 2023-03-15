@@ -166,6 +166,7 @@ function renderSelectedRecipe(recipe, h ) {
 
     renderIngredientsTable(handler[0], h);
     $('.hero-body').append(instructionsEl);
+    window.scrollTo(0,0);
 };
 
 // create table with ingredients to display in recipe content
