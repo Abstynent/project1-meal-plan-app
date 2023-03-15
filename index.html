@@ -12,7 +12,7 @@
   </head>
   <body>
     <nav
-      class="has-text-white p-1 navbar is-fixed-top is-align-items-center shadow has-background-primary is-flex is-fluid navbar is-justify-content-space-around"
+      class="has-text-white p-1 navbar nav-radius is-fixed-top is-align-items-center shadow has-background-primary is-flex is-fluid navbar is-justify-content-space-around"
     ><div class="is-flex is-align-items-center is-flex-direction-column">
       <p class="timecolor  timeborder  border-radius" id="currentDay"></p>
         <img class="navbar-image" src="./assets/images/logo.png"></img>
@@ -23,7 +23,7 @@
       class="hero-body is-justify-content-space-evenly ">
       <div class="hero-body is-justify-content-space-evenly is-flex-wrap-wrap is-flex">
     <div>
-        <h3 class="has-text-centered shadow border-radius m-4 is-size-3">Meal</h3>
+        <h3 class="has-text-centered shadow border-radius has-text-weight-bold m-4 is-size-3">Meal</h3>
         <a href="./search.html?meal"
           ><img
             class="border-radius imagemain shadow img"
@@ -32,7 +32,7 @@
         /></a>
       </div>
       <div>
-        <h3 class="has-text-centered shadow border-radius m-4 is-size-3">Cocktail</h3>
+        <h3 class="has-text-centered shadow border-radius has-text-weight-bold m-4 is-size-3">Cocktail</h3>
         <a href="./search.html?cocktail"
           ><img
             class="border-radius imagemain shadow img"
@@ -41,13 +41,11 @@
         /></a>
       </div>
     </div>
-      <div id="saveprofiles">
-
-      
-      </div>
-    
+    <h2 class="has-text-centered shadow border-radius has-text-white has-text-weight-bold m-2 p-2 has-background-primary is-size-3">Saved Recipes</h2>
+      <section id="saveprofiles" class="columns  is-align-items-center m-3 is-centered is-multiline">
+      </section>
     </section>
-    <footer class="height z-index position shadow">
+    <footer class="height z-index footer-radius position shadow">
       <div class="has-text-centered">
         <div>
           <h6 class="is-size-5 has-text-weight-bold is-">Created By</h6>
