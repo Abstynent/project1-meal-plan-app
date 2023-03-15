@@ -5,15 +5,27 @@ a:focus {
     text-decoration: none;
     color: black;
 }
-button:focus {
-  background-color: red;
+section {
+  margin-top: 11vh;
+  margin-bottom: 12vh;
 }
-
+input {
+  width: 100px;
+  height: 25px;
+  border-radius: 10px;
+  margin-right: 5px;
+}
 .border {
   border: solid black;
 }
 .border-radius {
   border-radius: 35px;
+}
+.footer-radius {
+  border-radius: 40px 40px 0px 0px;
+}
+.nav-radius {
+  border-radius: 0px 0px 40px 40px;
 }
 .img:hover {
   opacity: 0.5;
@@ -24,19 +36,12 @@ button:focus {
 .shadow {
   box-shadow: 5px 5px 15px 5px rgb(214, 214, 214)
 }
-
 .search-form {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center
   
-}
-input {
-  width: 100px;
-  height: 25px;
-  border-radius: 10px;
-  margin-right: 5px;
 }
 
 .search {
@@ -73,12 +78,6 @@ input {
   z-index: 1;
   background-color: azure;
 }
-
-section {
-  margin-top: 11vh;
-  margin-bottom: 12vh;
-}
-
 .imagemain {
   width: 250px;
   height: 250px;

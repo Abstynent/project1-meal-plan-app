@@ -408,7 +408,7 @@ if(!meal) {
         let img_url = backHandler[i].strDrinkThumb;
         let id = backHandler[i].idDrink;
         let strType = backHandler[i].strDrink;
-        let column = $('<div class=" border-radius m-1">');
+        let column = $('<div class="column is-link border-radius is-flex-direction-column is-align-self-flex-start is-one-fifth has-text-centered m-1">');
         let link = $('<a id="' + id + '" value="' + meal + '" onclick="selectRecipe(event)">');
         let img = $('<img class="shadow img border-radius" src="' + img_url + '" alt="' + strType +'">');
         let pTag = $('<p>').text(strType);
