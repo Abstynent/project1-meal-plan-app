@@ -124,8 +124,11 @@ input {
     font-weight: bold;
     font-size: small;
     padding: 2px;
-    margin: 1px;
-    
+    margin: 1px; 
+}
+section {
+  margin-top: 3vh;
+  margin-bottom: 5vh;
 }
 .imagemain {
   width: 190px;
