@@ -93,6 +93,7 @@ $(function() {
             let h = saved[1] === "true" ? true : false;
             $('.main-content').empty().append(SEARCH_DISPLAY);
             fetchRecipeID(saved[0], h);
+            localStorage.removeItem('handleSavedRecipe');
         } else { // go back to index.html if selection was not made
             window.location.href = "index.html";
         };
@@ -202,12 +203,14 @@ function renderIngredientsTable(recipe, h ) {
     recipeColumnEl.append(recipeTitleEl).append(ingredientsTableEl);
     ingredientsTableEl.append(ingredientsTableBodyEl);
     
-    let buttonDiv = $('<div>')
-    recipeColumnEl.append(buttonDiv)
-    buttonDiv.append(back)
-    buttonDiv.append(btn)
-    document.getElementById('savebtn').addEventListener('click', save);
-    document.getElementById('backbtn').addEventListener('click', previous);
+    if(window.location.search !== "?saved") {
+        let buttonDiv = $('<div>')
+        recipeColumnEl.append(buttonDiv)
+        buttonDiv.append(back)
+        buttonDiv.append(btn)
+        document.getElementById('savebtn').addEventListener('click', save);
+        document.getElementById('backbtn').addEventListener('click', previous);
+    };
     
     // display all existing ingredients from API response
     let len = h ? 21 : 16;
@@ -445,6 +448,7 @@ function renderSavedRecipes() {
     }
 };
 
+// display saved recipe
 function selectSavedRecipe(event) {
     let handleSavedRecipe = [event.target.parentNode.id, event.target.parentNode.getAttribute('value')]
     localStorage.setItem("handleSavedRecipe", JSON.stringify(handleSavedRecipe));
