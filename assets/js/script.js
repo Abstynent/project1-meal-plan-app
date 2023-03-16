@@ -162,7 +162,7 @@ function renderSelectedRecipe(recipe, h ) {
     let strType = h ? handler[0].strMeal : handler[0].strDrink;
 
     // create DOM elements and append them
-    let imgColumnEl = $('<div class="column m-4">')
+    let imgColumnEl = $('<div class="column is-flex is-justify-content-space-evenly m-4">')
     let imgFrameEl = $('<figure class="image">');
     let imgEl = $('<img class="shadow image imgrecipe mt-3 border-radius" src="' + imgUrl +'" alt="' + strType +'">');
     let instructionsEl = $('<div id="recipe-description" class="rows m-4">').text(handler[0].strInstructions);
