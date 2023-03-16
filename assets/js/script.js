@@ -49,7 +49,7 @@ var currentRecipe;
 var backHandler;
 var meal;
 var currentTime = dayjs();
-
+var storageHandler;
 
 // <-------------------- FUNCTIONS TO RUN AT START
 $(function() {
@@ -88,6 +88,11 @@ $(function() {
             $('#meal-area-div').hide();
             $('#meal-category-div').hide();
             appendSelectEl(false);
+        } else if(selectedOption === "?saved"){
+            let saved = JSON.parse(localStorage.getItem('handleSavedRecipe'));
+            let h = saved[1] === "true" ? true : false;
+            $('.main-content').empty().append(SEARCH_DISPLAY);
+            fetchRecipeID(saved[0], h);
         } else { // go back to index.html if selection was not made
             window.location.href = "index.html";
         };
@@ -430,7 +435,7 @@ function renderSavedRecipes() {
     let contentEl = $('#saveprofiles');
     for(let i=0; i<savedRecipes.length; i++) {
         let column = $('<div class="column is-link border-radius is-flex-direction-column is-align-self-flex-start is-one-fifth has-text-centered m-1">');
-        let link = $('<a id="' + savedRecipes[i].id + '" value="' + savedRecipes[i].type + '" onclick="selectRecipe(event)">');
+        let link = $('<a id="' + savedRecipes[i].id + '" value="' + savedRecipes[i].type + '" onclick="selectSavedRecipe(event)">');
         let img = $('<img class="shadow img mt-3 border-radius" src="' + savedRecipes[i].thumbnail + '" alt="Saved recipe picture.">');
         let pTag = $('<p>').text(savedRecipes[i].strType);
 
@@ -438,4 +443,11 @@ function renderSavedRecipes() {
         link.append(img).append(pTag);
         contentEl.append(column);
     }
+};
+
+function selectSavedRecipe(event) {
+    let handleSavedRecipe = [event.target.parentNode.id, event.target.parentNode.getAttribute('value')]
+    localStorage.setItem("handleSavedRecipe", JSON.stringify(handleSavedRecipe));
+    
+    window.location.href = "search.html?saved";
 };
