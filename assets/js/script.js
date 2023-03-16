@@ -171,7 +171,7 @@ function renderSelectedRecipe(recipe, h ) {
     SEARCH_DISPLAY.empty().append(imgColumnEl);
 
     renderIngredientsTable(handler[0], h);
-    $('.hero-body').append(instructionsEl);
+    $('.main-content').append(instructionsEl);
     window.scrollTo(0,0);
 };
 
